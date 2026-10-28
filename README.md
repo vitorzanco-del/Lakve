@@ -7,16 +7,16 @@ Nosso objetivo é trazer uma solução para o problema de visualizaçâo das má
 
 Dividimos as equipes em quatro, cada uma responsável por uma parte do projeto.
 
-# Lakave:
+--- Lakave:
  Esta equipe está responsável pela documentação do projeto.
 
-# Cominic CNC:
+--- Cominic CNC:
  Responsável por Servidor, Frontend x Backend.
 
-# Thirteentech:
+--- Thirteentech:
  Vão fazer as entrevistas, fazer as medidas, tirar fotos e vídeos, Organização das equipes.
 
-# Axión:
+--- Axión:
  Vai fazer Fazer montagem do contêiner do Raspberry, provavelmente via impressão 3D, Instalar o sistema operacional no raspberry é Instalar o Raspberry no monitor.  
 
 
