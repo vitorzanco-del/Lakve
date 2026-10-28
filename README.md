@@ -20,7 +20,7 @@ Dividimos as equipes em quatro, cada uma responsável por uma parte do projeto.
  Vai fazer Fazer montagem do contêiner do Raspberry, provavelmente via impressão 3D, Instalar o sistema operacional no raspberry é Instalar o Raspberry no monitor.  
 
 
-# Materiais usados:
+# Materiais usados
 Item	Para que serve
 Raspberry Pi (3B+, 4 ou 5)
 	Computador que exibe o projeto
