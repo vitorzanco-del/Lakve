@@ -48,7 +48,7 @@ Teclado e mouse USB	Configuração inicial
 
 ## Imagem do projeto
 
-![Monitor com Arduino](<monitor arduino.jpg>)
+![Monitor com Arduino] (<Monitor.jpg>)
 
  # Câmera
 Tivemos a ideia de colocar um vidro de acrílico cobrindo a câmera para protegê-la da temperatura.
