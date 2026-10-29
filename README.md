@@ -52,6 +52,7 @@ Teclado e mouse USB	Configuração inicial
 
  # Câmera
 Tivemos a ideia de colocar um vidro de acrílico cobrindo a câmera para protegê-la da temperatura.
+
 # imagens das maquinas
 ![imagensMaquina](<ç.jpeg>)
 ![imagemmaquina](<m.jpeg>)
@@ -84,5 +85,3 @@ Está trabalhando na criação da rede LAN. A primeira tentativa de conectar o s
 
 ***Grupo Neonix**
 Está aguardando a chegada do projeto físico para finalizar o vídeo, que já está praticamente completo.
-
- 
