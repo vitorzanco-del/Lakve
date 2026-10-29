@@ -48,10 +48,11 @@ Teclado e mouse USB	Configuração inicial
 
 ## Imagem do projeto
 
-![Monitor com Arduino](<Monitor.jpg>)
+![Monitor com Arduino](<Console CNC em Oficina Industrial ensolarada.png>)
 
  # Câmera
 Tivemos a ideia de colocar um vidro de acrílico cobrindo a câmera para protegê-la da temperatura.
+
 
 # Andamento das equipes
 
@@ -67,5 +68,16 @@ Tivemos a ideia de colocar um vidro de acrílico cobrindo a câmera para proteg�
 
 **Lakave:** Escrevendo a documentação pro Git Hub.
 
+# atualiazação dia 29/10/2026
+***Grupo Comunic CNC** 
+Está auxiliando o grupo Axión, pois eles já finalizaram sua parte do projeto.
+
+***Grupo Axión**
+Está trabalhando na criação da rede LAN. A primeira tentativa de conectar o sistema teve um resultado inconclusivo, pois ainda não há um Raspberry Pi disponível para realizar os testes.
+
+***Grupo Thirteen**Grupo compareceu hoje.
+
+***Grupo Neonix**
+Está aguardando a chegada do projeto físico para finalizar o vídeo, que já está praticamente completo.
 
  
