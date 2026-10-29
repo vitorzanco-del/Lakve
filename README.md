@@ -69,13 +69,14 @@ Tivemos a ideia de colocar um vidro de acrílico cobrindo a câmera para proteg�
 **Lakave:** Escrevendo a documentação pro Git Hub.
 
 # atualização dia 29/10/2026
+
 ***Grupo Comunic CNC** 
 Está auxiliando o grupo Axión, pois eles já finalizaram sua parte do projeto.
 
 ***Grupo Axión**
 Está trabalhando na criação da rede LAN. A primeira tentativa de conectar o sistema teve um resultado inconclusivo, pois ainda não há um Raspberry Pi disponível para realizar os testes.
 
-***Grupo Thirteen**Grupo compareceu hoje.
+***Grupo Thirteen** Grupo não compareceu hoje.
 
 ***Grupo Neonix**
 Está aguardando a chegada do projeto físico para finalizar o vídeo, que já está praticamente completo.
