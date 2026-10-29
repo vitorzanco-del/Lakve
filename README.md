@@ -57,7 +57,7 @@ Tivemos a ideia de colocar um vidro de acrílico cobrindo a câmera para proteg�
 ![imagensMaquina](<ç.jpeg>)
 ![imagemmaquina](<m.jpeg>)
 ![imagemligada](<Maquina ligada (2).jpg>)
-![imagemligada](<maquinaç.jpg>)
+![imagemligada](<z.jpeg>)
 
 # Andamento das equipes
 
