@@ -68,7 +68,7 @@ Tivemos a ideia de colocar um vidro de acrílico cobrindo a câmera para proteg�
 
 **Lakave:** Escrevendo a documentação pro Git Hub.
 
-# atualiazação dia 29/10/2026
+# atualização dia 29/10/2026
 ***Grupo Comunic CNC** 
 Está auxiliando o grupo Axión, pois eles já finalizaram sua parte do projeto.
 
