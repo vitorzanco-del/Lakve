@@ -52,7 +52,11 @@ Teclado e mouse USB	Configuração inicial
 
  # Câmera
 Tivemos a ideia de colocar um vidro de acrílico cobrindo a câmera para protegê-la da temperatura.
-
+# imagens das maquinas
+![imagensMaquina](<ç.jpeg>)
+![imagemmaquina](<m.jpeg>)
+![imagemligada](<Maquina ligada (2).jpg>)
+![imagemligada](<maquinaç.jpg>)
 
 # Andamento das equipes
 
@@ -70,7 +74,7 @@ Tivemos a ideia de colocar um vidro de acrílico cobrindo a câmera para proteg�
 
 # atualização dia 29/10/2026
 
-***Grupo Comunic CNC** 
+***Grupo Comunic CNC**
 Está auxiliando o grupo Axión, pois eles já finalizaram sua parte do projeto.
 
 ***Grupo Axión**
