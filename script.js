@@ -154,13 +154,19 @@ const DATA = [
     title: "Equipa Lakave",
     summary: "Documentação do projeto para o GitHub.",
     details: `
-      <p>Responsável pela documentação do projeto, que é organizada e publicada no GitHub.</p>`,
-    tags: ["equipas", "lakave", "documentacao", "github"]
+      <p>Responsável pela documentação do projeto, que é organizada e publicada no GitHub.</p>
+      <ul>
+        <li>Documentação de todas as equipas</li>
+        <li>Organização da documentação de cada equipa</li>
+        <li>Site para conhecer melhor o projeto</li>
+        <li>Envio da documentação para um repositório no GitHub (veja a aba Documentações de equipa)</li>
+      </ul>`,
+    tags: ["equipas", "lakave", "documentacao", "github", "repositorio", "site", "git"]
   },
   {
-    id: "senai-cominic",
+    id: "senai-comunic",
     cat: "senai",
-    title: "Equipa CominicCNC",
+    title: "Equipa ComunicCNC",
     summary: "Servidor, integração frontend x backend e ligação Bluetooth/rede.",
     details: `
       <p>Responsável pela parte de software que liga tudo:</p>
@@ -170,12 +176,12 @@ const DATA = [
         <li>Ligação por Bluetooth e por rede</li>
         <li>Documentação do sistema ConecTorno (veja a aba Documentações de equipa)</li>
       </ul>`,
-    tags: ["equipas", "cominiccnc", "conectorno", "documentacao", "servidor", "bluetooth", "rede", "backend", "frontend x backend"]
+    tags: ["equipas", "comuniccnc", "conectorno", "documentacao", "servidor", "bluetooth", "rede", "backend", "frontend x backend"]
   },
   {
     id: "senai-thirteentech",
     cat: "senai",
-    title: "Equipa Thirteentech",
+    title: "Equipa ThirteenTech",
     summary: "Entrevistas com o professor, medições físicas e organização no Trello.",
     details: `
       <p>Responsável pelo levantamento de requisitos e pela organização do trabalho:</p>
@@ -183,8 +189,9 @@ const DATA = [
         <li>Entrevistas com o professor</li>
         <li>Medições físicas</li>
         <li>Organização das tarefas no Trello</li>
+        <li>Documentação da entrevista (veja a aba Documentações de equipa)</li>
       </ul>`,
-    tags: ["equipas", "thirteentech", "entrevistas", "medicoes", "trello"]
+    tags: ["equipas", "thirteentech", "entrevistas", "medicoes", "trello", "documentacao", "prancheta"]
   },
   {
     id: "senai-axion",
@@ -197,8 +204,9 @@ const DATA = [
         <li>Impressão 3D da caixa do Raspberry Pi</li>
         <li>Instalação do sistema operativo (operacional) no Raspberry Pi</li>
         <li>Montagem do suporte VESA no monitor</li>
+        <li>Documentação técnica do projeto (veja a aba Documentações de equipa)</li>
       </ul>`,
-    tags: ["equipas", "axion", "impressao 3d", "raspberry pi", "sistema operacional", "vesa"]
+    tags: ["equipas", "axion", "impressao 3d", "raspberry pi", "sistema operacional", "vesa", "documentacao", "wifi", "hotspot", "ssh"]
   },
   {
     id: "senai-neonix",
@@ -210,8 +218,9 @@ const DATA = [
       <ul>
         <li>Protótipo do site</li>
         <li>Roteiro do vídeo de apresentação</li>
+        <li>Relatório de atividades (veja a aba Documentações de equipa)</li>
       </ul>`,
-    tags: ["equipas", "neonix", "prototipo", "site", "video", "roteiro"]
+    tags: ["equipas", "neonix", "prototipo", "site", "video", "roteiro", "figma", "trello", "relatorio", "documentacao"]
   },
   {
     id: "senai-materiais",
@@ -414,17 +423,19 @@ render();
 /* ============================================================
    DOCUMENTAÇÕES DE EQUIPA
    Para acrescentar o documento de outra equipa, crie uma entrada
-   em DOCS com o id da equipa: lakave, cominic, thirteentech,
+   em DOCS com o id da equipa: lakave, comunic, thirteentech,
    axion ou neonix.
-   Blocos: p, h3, ul, ol, table, note, code. Use `código` e **negrito**.
+   Blocos: p, h3, ul, ol, table, note, code, qa (perguntas e respostas). Use `código` e **negrito**.
    ============================================================ */
 const DOCS = {
-  cominic: {
+  comunic: {
     kicker: "Documentação do sistema",
     title: "ConecTorno",
     subtitle: "Site de comunicação e acompanhamento de monitores para uso com o servidor existente no Raspberry Pi.",
-    objective: "Explicar o funcionamento do site, seus recursos, a comunicação com a API e os cuidados de instalação.",
-    version: "Pacote somente do site (frontend), sem servidor próprio, porque o Raspberry já possui um servidor.",
+    meta: [
+      ["Objetivo", "Explicar o funcionamento do site, seus recursos, a comunicação com a API e os cuidados de instalação."],
+      ["Versão documentada", "Pacote somente do site (frontend), sem servidor próprio, porque o Raspberry já possui um servidor."]
+    ],
     source: "Documento técnico, versão frontend. Baseado no pacote ConecTorno_Raspberry_Somente_Site_Sem_Servidor.zip e no arquivo API_COMPATIBILIDADE.md incluído nele.",
     sections: [
       { title: "1. Visão geral", blocks: [
@@ -527,6 +538,259 @@ const DOCS = {
         { p: "O ConecTorno desta versão é o frontend do sistema. Ele fornece a interface visual e faz requisições para uma API já existente. Para funcionar no Raspberry Pi sem criar outro servidor, o serviço atual precisa servir a pasta `static` e implementar as rotas, permissões e formatos de dados descritos neste documento. Se houver incompatibilidade, a solução é adaptar o frontend ou o backend existente de forma controlada, preservando dados e configurações." }
       ] }
     ]
+  },
+  neonix: {
+    kicker: "Relatório da equipa",
+    title: "Relatório Equipe Neonix",
+    subtitle: "Protótipo do site e roteiro do vídeo de apresentação.",
+    meta: [
+      ["Período", "22/10 a 30/10"],
+      ["Responsabilidades", "Protótipo do site no Figma, requisitos no Trello e roteiro do vídeo que será apresentado no Mundo SENAI."]
+    ],
+    source: "Baseado no relatório da equipe (Relatório-Neonix.pdf).",
+    sections: [
+      { title: "Resumo do andamento", blocks: [
+        { table: { head: ["Atividade", "Situação"], rows: [
+          ["Documento com ideias e páginas do protótipo", "Concluído (22/10)"],
+          ["Tabela no Trello com requisitos funcionais e não funcionais", "Concluído (23/10)"],
+          ["Protótipo no Figma", "Concluído (23/10)"],
+          ["Roteiro do vídeo", "Concluído (28 a 30/10)"],
+          ["Edição das partes já gravadas do vídeo", "Feita até agora"],
+          ["Conclusão do vídeo", "Aguardando o projeto ser levado para a sala do torno"]
+        ] } }
+      ] },
+      { title: "Dia 22/10", blocks: [
+        { p: "Fizemos um documento contendo ideias para realizar, e as páginas que seriam aplicadas na prototipagem do Figma." }
+      ] },
+      { title: "Dia 23/10", blocks: [
+        { p: "Criamos uma tabela no Trello com os requisitos funcionais e os não funcionais e um protótipo no Figma, contendo:" },
+        { ul: [
+          "Tela de login",
+          "Tela para adicionar o PDF",
+          "Tela para monitorar os PCs e enviar alguma informação para o PC selecionado",
+          "Por fim, a tela que o aluno irá visualizar"
+        ] }
+      ] },
+      { title: "Dias 28, 29 e 30/10", blocks: [
+        { p: "Nesse período realizamos o roteiro do vídeo que será apresentado no Mundo SENAI e criamos um documento detalhado do roteiro. Após isso, começamos a desenvolver o vídeo e editamos as partes já gravadas." },
+        { note: ["Pendente:", "estamos aguardando que o projeto seja levado para a sala do torno para a conclusão do nosso vídeo."] }
+      ] }
+    ]
+  },
+  thirteentech: {
+    kicker: "Entrevista com o professor",
+    title: "Entrevista com o professor",
+    subtitle: "Perguntas e respostas da entrevista feita pela equipa ThirteenTech para entender como o projeto é consultado durante a usinagem.",
+    meta: [
+      ["Responsabilidades da equipa", "Entrevistas com o professor, medições físicas e organização no Trello."]
+    ],
+    source: "Baseado nas respostas registadas na entrevista com o professor.",
+    sections: [
+      { title: "Resumo das respostas", blocks: [
+        { ul: [
+          "Hoje o projeto existe em papel, numa prancheta, e também é mostrado no projetor.",
+          "O maior problema é que os alunos ao redor não conseguem ver a explicação e, se há uma dúvida, todos têm que parar o que estão fazendo para ir até o projetor.",
+          "O monitor ficaria em cima da máquina, onde hoje fica a prancheta.",
+          "Só o professor mexe no monitor, e é ele quem coloca o projeto da aula no sistema, no começo da aula.",
+          "Há tomada e rede perto da máquina, e pode-se colocar equipamentos em cima dela sem problema."
+        ] }
+      ] },
+      { title: "Como o projeto é consultado hoje", blocks: [
+        { qa: [
+          ["Que informação vocês precisam olhar durante a usinagem?", "Olhar o roteiro da peça, às vezes um cálculo que o professor irá passar no projetor."],
+          ["Como consultam hoje e o que dá errado?", "O professor explica como produzir a peça e deixa o projeto na prancheta. O maior problema é quando o professor está explicando e os alunos que estão em volta não conseguem enxergar. Se houver uma dúvida, todos os alunos têm que parar o que estão fazendo para ir na frente do projetor ver a explicação do professor. Se tiver um monitor em cima do torno, fica mais fácil para o professor explicar para todos e, para cada um dos alunos, ele pode explicar de um jeito diferente para suprir todas as dúvidas."],
+          ["Em que formato o projeto existe hoje (papel, PDF, DWG, STEP, foto)?", "Papel, uma prancheta e o projetor, para os alunos observarem o projeto e tirarem dúvidas."],
+          ["Em que momento olham o projeto: máquina parada, entre operações, durante o ciclo?", "Tanto com a máquina parada quanto durante o ciclo."]
+        ] }
+      ] },
+      { title: "Onde e como o monitor seria usado", blocks: [
+        { qa: [
+          ["Onde um monitor ficaria sem cobrir a peça, o painel e o botão de emergência?", "Em cima da máquina, onde atualmente fica a prancheta."],
+          ["Com mão suja ou de luva, qual o jeito mais fácil de trocar de página ou dar zoom?", "O aluno não vai precisar mexer no monitor, apenas o professor."],
+          ["Quem coloca o projeto da aula no sistema, e quando?", "O professor, no começo da aula."],
+          ["Tem tomada e rede perto da máquina? Pode fixar algo nela (prender algum equipamento ou suporte na estrutura do local)?", "Tem tomada e rede, e pode sem problema algum colocar coisas em cima da máquina."]
+        ] }
+      ] },
+      { title: "Rotina do operador", blocks: [
+        { qa: [
+          ["Em que momentos o operador olha o desenho da peça?", "Ele olha a peça em todos os momentos da aula, pois tem que seguir um passo a passo."],
+          ["Onde ele está parado quando olha?", "Ele fica parado na lateral da máquina, onde é o posto de comando."],
+          ["O que ele faz com as mãos?", "Ele trabalha com os eixos (eixo X e eixo Y) e manuseia os instrumentos de medida (paquímetro, micrômetro, etc.)."]
+        ] }
+      ] },
+      { title: "Manutenção das máquinas", blocks: [
+        { qa: [
+          ["As máquinas precisam de manutenção com frequência?", "Precisam, tem um profissional que faz a manutenção das máquinas frequentemente. E também tem um QR code em cada máquina, caso haja algum problema."]
+        ] }
+      ] }
+    ]
+  },
+  axion: {
+    kicker: "Documentação técnica",
+    title: "Projeto Conectorno",
+    subtitle: "Implementação e configuração dos dispositivos Raspberry Pi 3B+.",
+    meta: [
+      ["Estado", "SENAI · Em desenvolvimento"],
+      ["Responsabilidades da equipa", "Impressão 3D da caixa do Raspberry Pi, instalação do sistema operativo e montagem do suporte VESA no monitor."]
+    ],
+    source: "Baseado na Documentação Técnica do Projeto Conectorno (SENAI, em desenvolvimento).",
+    sections: [
+      { title: "1. Preparação física do Raspberry Pi", blocks: [
+        { p: "O projeto **Conectorno** utiliza placas **Raspberry Pi 3B+** instaladas individualmente junto a cada torno CNC. O objetivo físico desta etapa é garantir a proteção mecânica, o fluxo térmico adequado para ambientes industriais (com presença de poeira e cavacos) e a fixação segura do hardware." },
+        { h3: "1.1 Componentes utilizados e infraestrutura" },
+        { ul: [
+          "**SBC (Single Board Computer):** Raspberry Pi 3B+ (Broadcom BCM2837B0, Quad-core 1.4 GHz, 1 GB SDRAM).",
+          "**Alimentação Elétrica:** fonte chaveada dedicada 5 V / 2.5 A DC via conector Micro-USB.",
+          "**Armazenamento:** cartão MicroSD SanDisk Class 10 (16 GB / 32 GB).",
+          "**Refrigeração Ativa:** micro-fan 5 V DC (30x30 mm) conectado aos pinos GPIO 4 (5 V) e GPIO 6 (GND).",
+          "**Gabinete de Proteção:** caixa personalizada produzida via impressão 3D (FDM, filamento PLA/PETG)."
+        ] },
+        { note: ["Registro de desenvolvimento:", "as especificações dimensionais definitivas, os pontos de ancoragem mecânica e a geometria final da caixa impressa em 3D ainda estão em desenvolvimento. Protótipos continuam em teste para aperfeiçoar a vedação contra resíduos do processo de usinagem."] }
+      ] },
+      { title: "2. Montagem dos dispositivos", blocks: [
+        { p: "O processo de montagem compreende o posicionamento da placa na base da caixa impressa, a conexão do cooler nos pinos GPIO apropriados e o alinhamento das interfaces de saída (USB, RJ45, Micro-USB) com o gabinete." },
+        { h3: "2.1 Dificuldades encontradas na montagem" },
+        { ul: [
+          "**Tolerância de Impressão 3D:** retrações térmicas no filamento causaram interferências no encaixe do conector Micro-USB e no acesso ao slot do cartão MicroSD.",
+          "**Disposição dos Condutores:** o espaço reduzido exigiu rotacionamento e fixação cuidadosa dos fios do cooler para evitar contato mecânico com a hélice."
+        ] }
+      ] },
+      { title: "3. Configuração e testes iniciais", blocks: [
+        { p: "Na fase inicial, avaliou-se o uso da tecnologia **Bluetooth** integrada ao Raspberry Pi 3B+ para o envio de documentos e desenhos técnicos de peças entre os computadores de gerenciamento e os monitores dos tornos." },
+        { h3: "3.1 Finalidade do sistema: visualização de documentos técnico-operacionais" },
+        { p: "O objetivo principal do projeto **Conectorno** é substituir o uso tradicional de pranchetas de papel no chão de fábrica por um sistema digital de visualização. O dispositivo não realiza a gravação ou execução direta de rotinas no comando da máquina CNC; sua função é disponibilizar, diretamente na tela instalada ao lado do torno:" },
+        { ul: [
+          "**Desenhos Técnicos de Peças:** folhas de instrução visual e cotas dimensionais para orientação durante a usinagem.",
+          "**Folhas de Processo e Roteiros:** procedimentos de montagem, sequência de operação e parâmetros de corte recomendados.",
+          "**Avisos e Observações do Instrutor/Professor:** orientação personalizada enviada em tempo real para monitores específicos."
+        ] },
+        { h3: "3.2 Ensaio via Bluetooth e motivos do insucesso" },
+        { p: "Durante os testes de envio dos arquivos PDF e imagens via Bluetooth, verificou-se que o método apresentava forte **irregularidade, instabilidade e complexidade operacional** para a rotina da oficina:" },
+        { ul: [
+          "**Instabilidade de Transmissão:** sinal sujeito a oscilações térmicas e interferências eletromagnéticas do ambiente fabril.",
+          "**Dificuldade de Usabilidade:** processo de pareamento e reestabelecimento manual de conexão complexo para os alunos e operadores."
+        ] },
+        { p: "**Solução adotada:** decidiu-se implementar uma **rede local sem fio (Wi-Fi) isolada**, criada a partir de um Raspberry Pi dedicado configurado como hotspot. Essa abordagem trouxe simplicidade, estabilidade de sinal e perfeita integração com o sistema do grupo **ComunicCNC**." }
+      ] },
+      { title: "4. Instalação do sistema operacional", blocks: [
+        { ol: [
+          ["Gravação do Cartão:", "utilização da ferramenta Raspberry Pi Imager para gravação do **Raspberry Pi OS** no MicroSD."],
+          ["Ajustes de Sistema:", "definido hostname individual (ex.: `conectorno-pi-01`), ativado o serviço **SSH** para acesso remoto sem periféricos (headless), e ajustadas as credenciais e o fuso horário via `raspi-config`."]
+        ] }
+      ] },
+      { title: "5. Instalação e configuração do sistema ConecTorno", blocks: [
+        { h3: "5.1 Apresentação e arquitetura" },
+        { p: "O **ConecTorno** é uma interface web voltada para a modernização da distribuição de documentos técnicos no ambiente de oficina. O sistema substitui as pranchetas físicas por monitores digitais, permitindo ao professor gerenciar o material exibido em até 6 estações individuais de tornos. O pacote frontend disponibilizado contém:" },
+        { code: [
+          "static/",
+          "├── index.html   # Estrutura das telas de login, painel e monitores",
+          "├── style.css    # Estilização e layout visual",
+          "├── app.js       # Lógica do cliente e requisições HTTP (Fetch API)",
+          "└── pdfjs/       # Biblioteca para renderização de documentos PDF"
+        ] },
+        { note: ["Nota da arquitetura:", "a versão documentada contém apenas os arquivos do frontend. O servidor Python/Flask, o banco de dados e os mecanismos de autenticação backend residem nativamente no Raspberry Pi e não foram alterados."] },
+        { h3: "5.2 Funcionamento das telas e comunicação com API" },
+        { ul: [
+          "**Painel do Professor:** protegido por usuário/senha. Permite publicar arquivos PDF e imagens, enviar projetos gerais, selecionar monitores específicos (1 a 6) e gerenciar observações.",
+          "**Monitores Individuais:** acessados via URL com parâmetro (ex.: `http://IP:PORTA/?monitor=1`). O script `app.js` consulta a API periodicamente e envia sinal de atividade (heartbeat)."
+        ] },
+        { table: { head: ["Operação API", "Método", "Finalidade técnica"], rows: [
+          ["`/api/auth`", "GET / POST", "Valida credenciais e verifica estado da sessão do professor."],
+          ["`/api/panel`", "GET", "Carrega estado dos monitores, avisos e arquivos publicados."],
+          ["`/api/upload`", "POST", "Recebe arquivos PDF/imagens enviados pelo professor."],
+          ["`/api/monitor`", "GET / POST", "Consulta conteúdo do monitor e envia sinal de heartbeat."]
+        ] } },
+        { h3: "5.3 Cuidados na instalação e compatibilidade" },
+        { ol: [
+          "Localizar o diretório de arquivos estáticos do servidor web existente no Raspberry Pi.",
+          "Executar backup completo dos dados e configurações: `tar -czvf backup_conectorno.tar.gz /caminho`.",
+          "Substituir apenas os arquivos do frontend, preservando os scripts Python e o banco de dados.",
+          "Reiniciar o serviço do projeto e testar as telas administrativas e de monitor."
+        ] },
+        { p: "**Observação:** a compatibilidade real das rotas HTTP deve ser verificada durante a instalação, pois a documentação consultada descreve a especificação esperada do frontend." }
+      ] },
+      { title: "6. Implementação da rede local isolada", blocks: [
+        { p: "A arquitetura de rede foi estruturada para ser simples e robusta, operando em rede sem fio local totalmente isolada da infraestrutura corporativa do SENAI, com endereçamento IP fixo manual e integração ao sistema ComunicCNC." },
+        { code: ["+---------------------------------------------+", "| Raspberry Pi Central                        |", "| (Hotspot ComunicCNC / IP final .1)          |", "+------+---------------+---------------+------+", "  Wi-Fi local     Wi-Fi local     Wi-Fi local", "       |               |               |", "       v               v               v", "+-------------+ +-------------+ +-------------+", "| RPi Torno 1 | | RPi Torno 2 | | RPi Torno N |", "| (Monitor 1) | | (Monitor 2) | | (Monitor N) |", "+-------------+ +-------------+ +-------------+"] }
+      ] },
+      { title: "7. Funcionamento final e validação", blocks: [
+        { p: "Após a implementação completa, o Raspberry Pi central proverá o hotspot Wi-Fi para o ecossistema da turma de mecânica. As telas individuais exibirão os desenhos e instruções de usinagem com atualização automática via HTTP. A validação final inclui testes de estabilidade da rede sem fio, tempo de carregamento das folhas de processo em PDF e garantia da legibilidade técnica no ambiente fabril." }
+      ] },
+      { title: "8. Conclusão", blocks: [
+        { p: "A substituição do Bluetooth pela rede local sem fio isolada trouxe a estabilidade necessária para transformar a rotina do laboratório, substituindo pranchetas físicas por um sistema moderno de telas digitais. As próximas etapas contemplam a finalização do suporte impresso 3D, a integração completa do sistema ao Raspberry, e a montagem aos tornos no laboratório de usinagem." }
+      ] }
+    ]
+  },
+  lakave: {
+    kicker: "Organização da documentação",
+    title: "Documentação do projeto",
+    subtitle: "Como a documentação das equipas foi produzida, organizada e publicada, e como funciona o site de apoio ao projeto.",
+    meta: [
+      ["Responsabilidade", "Documentação do projeto e publicação no GitHub."],
+      ["Entregas", "Documentação de cada equipa, site para conhecer o projeto e repositório no GitHub."]
+    ],
+    source: "Elaborado pela equipa Lakave a partir da documentação de cada equipa e do próprio site do projeto.",
+    sections: [
+      { title: "1. Papel da equipa", blocks: [
+        { p: "A Lakave é a equipa responsável pela documentação do projeto de visualização remota da usinagem. Ela escreveu as documentações, organizou o material de cada equipa num só lugar, criou o site para conhecer melhor o projeto e publicou tudo num repositório no GitHub." },
+        { h3: "Responsabilidades" },
+        { ul: [
+          "Produzir as documentações do projeto.",
+          "Organizar a documentação de cada equipa.",
+          "Criar o site para saber mais sobre o projeto.",
+          "Enviar a documentação para o GitHub, num repositório próprio."
+        ] }
+      ] },
+      { title: "2. Documentação organizada por equipa", blocks: [
+        { p: "Cada equipa tem o seu documento, reunido na aba **Documentações de equipa** do site." },
+        { table: { head: ["Equipa", "Documento", "Conteúdo"], rows: [
+          ["ComunicCNC", "ConecTorno: documentação do sistema", "Funcionamento do site, rotas da API, requisitos de compatibilidade, instalação segura no Raspberry Pi e diagnóstico de problemas."],
+          ["Axión", "Projeto Conectorno: documentação técnica", "Preparação física e montagem do Raspberry Pi 3B+, testes com Bluetooth, rede Wi-Fi isolada, instalação do sistema e arquitetura do ConecTorno."],
+          ["ThirteenTech", "Entrevista com o professor", "Perguntas e respostas sobre como o projeto é consultado hoje, onde o monitor ficaria e a rotina do operador."],
+          ["Neonix", "Relatório da equipe", "Andamento de 22/10 a 30/10: protótipo no Figma, requisitos no Trello e roteiro do vídeo."],
+          ["Lakave", "Documentação do projeto", "Este documento: organização da documentação, site do projeto e repositório no GitHub."]
+        ] } }
+      ] },
+      { title: "3. O site do projeto", blocks: [
+        { p: "O site reúne, num só lugar, uma base de conhecimento sobre o torno CNC, o desenvolvimento web (frontend e backend) e o projeto SENAI, além da documentação de cada equipa." },
+        { h3: "Funcionalidades" },
+        { ul: [
+          "**Pesquisa em tempo real:** filtra os tópicos enquanto se digita, procurando no título, no resumo, nos detalhes e nas tags.",
+          "**Filtros de categoria:** Todas, Torno CNC, Frontend & Backend e Projeto SENAI.",
+          "**Cards expansíveis:** cada card mostra um resumo e abre com suavidade para mostrar a explicação completa.",
+          "**Hashtags clicáveis:** clicar numa tag insere o termo na barra de pesquisa.",
+          "**Documentações de equipa:** aba com o documento de cada equipa, com índice por seções."
+        ] },
+        { h3: "Tecnologias" },
+        { p: "O site é estático: usa HTML, CSS (com Tailwind CSS) e JavaScript, com ícones do FontAwesome. Não depende de servidor nem de banco de dados." },
+        { h3: "Arquivos do site" },
+        { code: [
+          "index.html   # estrutura da página e das abas",
+          "style.css    # extras de estilo (grelha de fundo, foco e rolagem)",
+          "script.js    # base de conhecimento, documentações e interatividade"
+        ] },
+        { h3: "Como abrir" },
+        { p: "Abra o `index.html` no navegador. É preciso ligação à internet, porque o Tailwind CSS, o FontAwesome e as fontes são carregados por CDN. Os três arquivos têm de ficar na mesma pasta." },
+        { note: ["Não confundir:", "este site de apoio é independente do sistema ConecTorno, que roda no Raspberry Pi e precisa de servidor."] }
+      ] },
+      { title: "4. Como acrescentar ou atualizar uma documentação", blocks: [
+        { ol: [
+          "Abrir o `script.js` e localizar o objeto `DOCS`.",
+          "Criar ou editar a entrada da equipa, usando o id dela: `lakave`, `comunic`, `thirteentech`, `axion` ou `neonix`.",
+          "Montar o conteúdo com blocos: `p` (parágrafo), `h3` (subtítulo), `ul` e `ol` (listas), `table` (tabela), `note` (aviso), `code` (código) e `qa` (perguntas e respostas).",
+          "Salvar o arquivo e atualizar a página com `Ctrl + F5` para conferir o resultado."
+        ] }
+      ] },
+      { title: "5. Publicação no GitHub", blocks: [
+        { p: "A documentação foi enviada para um repositório no GitHub, que guarda o material de todas as equipas num só lugar e mantém o histórico das alterações." },
+        { h3: "Como atualizar o repositório" },
+        { ol: [
+          "Salvar as alterações nos arquivos.",
+          "Preparar e enviar as mudanças: `git add .`, depois `git commit -m \"Atualiza a documentação\"` e por fim `git push`.",
+          "Conferir no GitHub se as alterações apareceram no repositório."
+        ] }
+      ] }
+    ]
   }
 };
 
@@ -550,7 +814,11 @@ function blockHTML(b) {
     return `<ul class="mb-4 list-disc space-y-1.5 pl-5 text-slate-300 marker:text-cyan-400">${li}</ul>`;
   }
   if (b.ol) {
-    const li = b.ol.map(([lead, text]) => `<li><strong class="text-white">${fmt(lead)}</strong> ${fmt(text)}</li>`).join("");
+    const li = b.ol
+      .map((it) => (Array.isArray(it)
+        ? `<li><strong class="text-white">${fmt(it[0])}</strong> ${fmt(it[1])}</li>`
+        : `<li>${fmt(it)}</li>`))
+      .join("");
     return `<ol class="mb-4 list-decimal space-y-2.5 pl-5 text-slate-300 marker:text-cyan-400">${li}</ol>`;
   }
   if (b.code) {
@@ -558,6 +826,11 @@ function blockHTML(b) {
   }
   if (b.note) {
     return `<div class="mb-4 rounded-lg border-l-4 border-amber-400 bg-amber-400/10 p-4 text-slate-200"><strong class="text-amber-300">${fmt(b.note[0])}</strong> ${fmt(b.note[1])}</div>`;
+  }
+  if (b.qa) {
+    return b.qa
+      .map(([q, a]) => `<div class="mb-3 rounded-lg border border-slate-700/60 bg-[#101a2e] p-4"><p class="font-medium text-white">${fmt(q)}</p><p class="mt-1.5 max-w-[72ch] text-slate-300">${fmt(a)}</p></div>`)
+      .join("");
   }
   if (b.table) {
     const th = b.table.head.map((h) => `<th class="px-4 py-2.5 font-semibold text-slate-200">${fmt(h)}</th>`).join("");
@@ -593,6 +866,9 @@ function teamsHTML() {
 function docHTML(id) {
   const d = DOCS[id];
   const team = TEAMS.find((t) => t.id === id);
+  const meta = d.meta
+    ? `<dl class="mt-5 grid gap-4 text-sm sm:grid-cols-2">${d.meta.map(([k, v]) => `<div><dt class="font-medium text-slate-200">${k}</dt><dd class="mt-0.5 text-slate-400">${v}</dd></div>`).join("")}</dl>`
+    : "";
   const nav = d.sections
     .map((s, i) => `<button type="button" data-goto="doc-s${i + 1}" class="block w-full rounded-md px-3 py-1.5 text-left text-sm text-slate-400 transition hover:bg-slate-800 hover:text-white">${esc(s.title)}</button>`)
     .join("");
@@ -612,10 +888,7 @@ function docHTML(id) {
       <p class="text-sm font-medium text-cyan-400">Equipa ${team.name} · ${d.kicker}</p>
       <h2 class="${HEAD_FONT} mt-1 text-3xl font-bold text-white sm:text-4xl">${d.title}</h2>
       <p class="mt-2 max-w-2xl text-lg text-slate-300">${d.subtitle}</p>
-      <dl class="mt-5 grid gap-4 text-sm sm:grid-cols-2">
-        <div><dt class="font-medium text-slate-200">Objetivo</dt><dd class="mt-0.5 text-slate-400">${d.objective}</dd></div>
-        <div><dt class="font-medium text-slate-200">Versão documentada</dt><dd class="mt-0.5 text-slate-400">${d.version}</dd></div>
-      </dl>
+      ${meta}
     </header>
     <div class="lg:grid lg:grid-cols-[15rem_1fr] lg:gap-10">
       <nav class="mb-8 lg:sticky lg:top-24 lg:mb-0 lg:self-start" aria-label="Índice da documentação">
