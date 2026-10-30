@@ -65,11 +65,7 @@ Tivemos a ideia de colocar um vidro de acrílico cobrindo a câmera para proteg�
 
 **Grupo: Axión:** montou o setup no Raspberry e está avaliando como o projeto vai ficar.
 
-<<<<<<< HEAD
-**Grupo:Comunic CNC:** o sistema por IP está pronto, mas há problema na rede do SENAI; vão usar um adaptador Bluetooth.
-=======
 **Grupo:Comunic CNC:** o sistema por IP está pronto, mas há problema na rede do SENAI vão usar um adaptador Bluetooth.
->>>>>>> bd03f2a (atualizando a documentação)
 
 **Grupo: ThirteenTech:** criou um link no Trello para a documentação das equipes. Entrevistou o professor na aula passada e fez a documentação por escrito.
 
@@ -77,7 +73,7 @@ Tivemos a ideia de colocar um vidro de acrílico cobrindo a câmera para proteg�
 
 **Grupo: Lakave:** Escrevendo a documentação pro Git Hub.
 
-# atualização dia 29/10/2026
+# Atualização dia 29/10/2026
 
 ***Grupo: Axión**
 Está trabalhando na criação da rede LAN. A primeira tentativa de conectar o sistema teve um resultado inconclusivo, pois ainda não há um Raspberry Pi disponível para realizar os testes.
