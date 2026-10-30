@@ -54,34 +54,37 @@ Teclado e mouse USB	Configuração inicial
 Tivemos a ideia de colocar um vidro de acrílico cobrindo a câmera para protegê-la da temperatura.
 
 # imagens das maquinas
-![imagensMaquina](<ç.jpeg>)
-![imagemmaquina](<m.jpeg>)
+![imagensMaquina](<m.jpeg>)
+![imagemmaquina](<ma.jpeg>)
 ![imagemligada](<Maquina ligada (2).jpg>)
-![imagemligada](<z.jpeg>)
+![imagemligada](<Romi.jpeg>)
 
 # Andamento das equipes
 
 ## Atualização de 28/10/2026
 
-**Axión:** montou o setup no Raspberry e está avaliando como o projeto vai ficar.
+**Grupo: Axión:** montou o setup no Raspberry e está avaliando como o projeto vai ficar.
 
-**Cominic CNC:** o sistema por IP está pronto, mas há problema na rede do SENAI; vão usar um adaptador Bluetooth.
+**Grupo:Cominic CNC:** o sistema por IP está pronto, mas há problema na rede do SENAI; vão usar um adaptador Bluetooth.
 
-**Thirteentech:** criou um link no Trello para a documentação das equipes. Entrevistou o professor na aula passada e fez a documentação por escrito.
+**Grupo: ThirteenTech:** criou um link no Trello para a documentação das equipes. Entrevistou o professor na aula passada e fez a documentação por escrito.
 
-**Neonix:** fez o protótipo do site para a equipe Cominic CNC e está escrevendo o roteiro do vídeo de apresentação.
+**Grupo: Neonix:** fez o protótipo do site para a equipe Cominic CNC e está escrevendo o roteiro do vídeo de apresentação.
 
-**Lakave:** Escrevendo a documentação pro Git Hub.
+**Grupo: Lakave:** Escrevendo a documentação pro Git Hub.
 
 # atualização dia 29/10/2026
 
-***Grupo Comunic CNC**
+***Grupo: Comunic CNC**
 Está auxiliando o grupo Axión, pois eles já finalizaram sua parte do projeto.
 
-***Grupo Axión**
+***Grupo: Axión**
 Está trabalhando na criação da rede LAN. A primeira tentativa de conectar o sistema teve um resultado inconclusivo, pois ainda não há um Raspberry Pi disponível para realizar os testes.
 
-***Grupo Thirteen** Grupo não compareceu hoje.
+***Grupo: ThirteenTech** Grupo não compareceu hoje.
 
-***Grupo Neonix**
+***Grupo: Neonix**
 Está aguardando a chegada do projeto físico para finalizar o vídeo, que já está praticamente completo.
+
+***Grupo: lakave**
+Estamos fazendo o site e documentando no README.
