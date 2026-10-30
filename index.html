@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portal de Conhecimento | Torno CNC, Web e Projeto SENAI</title>
+  <meta name="description" content="Base de conhecimento interativa sobre torno CNC, frontend e backend e o projeto SENAI de visualização remota da usinagem.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topbar sticky top-0 z-20">
+    <div class="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3">
+      <span class="logo" aria-hidden="true"><i class="fa-solid fa-gears"></i></span>
+      <span class="font-head text-lg font-semibold">Portal de Conhecimento</span>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl px-4 pb-16">
+
+    <section class="pt-10 pb-8 sm:pt-14">
+      <h1 class="font-head max-w-3xl text-4xl font-bold leading-tight sm:text-5xl">
+        Torno CNC, desenvolvimento web e o projeto SENAI num só lugar
+      </h1>
+      <p class="mt-4 max-w-2xl text-base text-slate-400 sm:text-lg">
+        Escreva uma dúvida, escolha uma categoria ou clique numa hashtag para encontrar a resposta.
+      </p>
+
+      <div class="mt-8">
+        <label for="search" class="sr-only">Pesquisar na base de conhecimento</label>
+        <div class="console">
+          <span class="prompt" aria-hidden="true">&gt;</span>
+          <input id="search" type="text" autocomplete="off" spellcheck="false" enterkeyhint="search"
+                 placeholder="Pesquise: eixo z, acrilico, backend...">
+          <button id="clear" type="button" class="icon-btn" aria-label="Limpar pesquisa" hidden>
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="filters" class="mt-4 flex flex-wrap gap-2" role="group" aria-label="Filtrar por categoria">
+        <button type="button" class="chip" data-cat="all" aria-pressed="true">
+          <i class="fa-solid fa-layer-group" aria-hidden="true"></i> Todas <span class="chip-n" data-count="all"></span>
+        </button>
+        <button type="button" class="chip" data-cat="cnc" aria-pressed="false">
+          <i class="fa-solid fa-gear" aria-hidden="true"></i> Torno CNC <span class="chip-n" data-count="cnc"></span>
+        </button>
+        <button type="button" class="chip" data-cat="web" aria-pressed="false">
+          <i class="fa-solid fa-code" aria-hidden="true"></i> Frontend &amp; Backend <span class="chip-n" data-count="web"></span>
+        </button>
+        <button type="button" class="chip" data-cat="senai" aria-pressed="false">
+          <i class="fa-solid fa-video" aria-hidden="true"></i> Projeto SENAI <span class="chip-n" data-count="senai"></span>
+        </button>
+      </div>
+
+      <p id="status" class="status mt-5" aria-live="polite"></p>
+    </section>
+
+    <section id="grid" class="grid items-start gap-4 lg:grid-cols-2" aria-label="Resultados"></section>
+
+    <div id="empty" class="empty" hidden>
+      <i class="fa-solid fa-magnifying-glass text-2xl" aria-hidden="true"></i>
+      <p class="mt-3 text-lg font-medium">Nenhum tópico encontrado</p>
+      <p class="mt-1 text-slate-400">Tente outro termo, como eixo z, backend ou acrilico.</p>
+      <button id="reset" type="button" class="chip mt-5">Limpar pesquisa e filtros</button>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="mx-auto max-w-6xl px-4 py-6 text-sm text-slate-500">
+      Projeto SENAI de monitorização de usinagem. Conteúdo de estudo.
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
