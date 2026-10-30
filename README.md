@@ -65,7 +65,11 @@ Tivemos a ideia de colocar um vidro de acrílico cobrindo a câmera para proteg�
 
 **Grupo: Axión:** montou o setup no Raspberry e está avaliando como o projeto vai ficar.
 
+<<<<<<< HEAD
 **Grupo:Comunic CNC:** o sistema por IP está pronto, mas há problema na rede do SENAI; vão usar um adaptador Bluetooth.
+=======
+**Grupo:Comunic CNC:** o sistema por IP está pronto, mas há problema na rede do SENAI vão usar um adaptador Bluetooth.
+>>>>>>> bd03f2a (atualizando a documentação)
 
 **Grupo: ThirteenTech:** criou um link no Trello para a documentação das equipes. Entrevistou o professor na aula passada e fez a documentação por escrito.
 
@@ -75,11 +79,11 @@ Tivemos a ideia de colocar um vidro de acrílico cobrindo a câmera para proteg�
 
 # atualização dia 29/10/2026
 
-***Grupo: Comunic CNC**
-Está auxiliando o grupo Axión, pois eles já finalizaram sua parte do projeto.
-
 ***Grupo: Axión**
 Está trabalhando na criação da rede LAN. A primeira tentativa de conectar o sistema teve um resultado inconclusivo, pois ainda não há um Raspberry Pi disponível para realizar os testes.
+
+***Grupo: Comunic CNC**
+Está auxiliando o grupo Axión, pois eles já finalizaram sua parte do projeto.
 
 ***Grupo: ThirteenTech** Grupo não compareceu hoje.
 
@@ -88,3 +92,20 @@ Está aguardando a chegada do projeto físico para finalizar o vídeo, que já e
 
 ***Grupo: lakave**
 Estamos fazendo o site e documentando no README.
+
+# atualização dia 30/10/2026
+
+***Grupo: Axión**
+acharam a solução definitiva pra entregar o sistema com rede local fizeram a documentação hoje.
+
+***Grupo: ComunicCNC**
+Estão ajudando o grupo Axión e mandaram a documentação pra a minha equipe
+
+***Grupo ThirteenTech**
+Tiraram fotos no laboratório e estão fazendo a penúltima página do relatório
+
+
+***Grupo: Neonix** Estão aguardando o Grupo Axión Terminar para terminar o Vídeo.
+
+***Grupo: Lakave**
+Estamos organizando o site, realizando ajustes no arquivo README.md e atualizando as páginas para incluir a documentação de cada equipe.
