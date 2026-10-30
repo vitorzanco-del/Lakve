@@ -6,42 +6,50 @@
   <title>Portal de Conhecimento | Torno CNC, Web e Projeto SENAI</title>
   <meta name="description" content="Base de conhecimento interativa sobre torno CNC, frontend e backend e o projeto SENAI de visualização remota da usinagem.">
 
+  <!-- Fontes do Google: Exo 2 (títulos) e Nunito Sans (texto). O preconnect acelera o carregamento. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;600;700&family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Ícones FontAwesome (as tags <i class="fa-solid ...">). -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <!-- Tailwind CSS via CDN: gera as classes de estilo usadas neste HTML e no script.js. Precisa de internet. -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Extras de estilo que o Tailwind não cobre (grade de fundo, foco, rolagem). -->
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="min-h-screen bg-[#0a1120] font-['IBM_Plex_Sans',system-ui,sans-serif] leading-relaxed text-slate-200">
+<body class="min-h-screen bg-[#F2F5FA] font-['Nunito_Sans',system-ui,sans-serif] leading-relaxed text-[#1B2A41]">
 
   <!-- Garante que o Tailwind gera estas classes antes do primeiro clique -->
   <div hidden class="grid-rows-[0fr] grid-rows-[1fr] rotate-180"></div>
 
-  <header class="sticky top-0 z-20 border-b border-slate-800 bg-[#0a1120]/90 backdrop-blur">
+  <!-- Cabeçalho azul fixo no topo (sticky), com faixa laranja embaixo. -->
+  <header class="sticky top-0 z-20 border-b-4 border-[#E84910] bg-[#0047B6] shadow-md">
     <div class="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3">
-      <span class="grid h-9 w-9 place-items-center rounded-lg border border-slate-700/60 bg-[#16233d] text-cyan-400" aria-hidden="true"><i class="fa-solid fa-gears"></i></span>
-      <span class="font-['Barlow_Semi_Condensed',sans-serif] text-lg font-semibold text-white">Portal de Conhecimento</span>
+      <span class="grid h-9 w-9 place-items-center rounded-lg bg-white/15 text-white" aria-hidden="true"><i class="fa-solid fa-gears"></i></span>
+      <span class="font-['Exo_2',sans-serif] text-lg font-semibold text-white">Portal de Conhecimento</span>
     </div>
   </header>
 
+  <!-- Conteúdo principal, centralizado e com largura máxima. -->
   <main class="mx-auto max-w-6xl px-4 pb-16">
 
+    <!-- Título da página, texto de apoio e as abas. -->
     <section class="pt-10 sm:pt-14">
-      <h1 class="max-w-3xl font-['Barlow_Semi_Condensed',sans-serif] text-4xl font-bold leading-tight text-white sm:text-5xl">
+      <h1 class="max-w-3xl font-['Exo_2',sans-serif] text-4xl font-bold leading-tight text-[#0A2F73] sm:text-5xl">
         Torno CNC, desenvolvimento web e o projeto SENAI em um só lugar
       </h1>
-      <p class="mt-4 max-w-2xl text-base text-slate-400 sm:text-lg">
+      <p class="mt-4 max-w-2xl text-base text-[#51607A] sm:text-lg">
         Pesquise dúvidas na base de conhecimento ou consulte a documentação técnica de cada equipe.
       </p>
 
-      <div id="tabs" role="tablist" aria-label="Seções do portal" class="mt-8 flex gap-1 overflow-x-auto border-b border-slate-800">
+      <!-- Abas: o script.js troca o aria-selected, e as classes aria-selected: pintam a aba ativa de azul com sublinhado laranja. -->
+      <div id="tabs" role="tablist" aria-label="Seções do portal" class="mt-8 flex gap-1 overflow-x-auto border-b border-[#D5DDEA]">
         <button type="button" role="tab" data-tab="kb" aria-selected="true"
-                class="-mb-px inline-flex items-center gap-2 whitespace-nowrap border-b-2 border-transparent px-4 py-3 text-sm font-medium text-slate-400 transition hover:text-slate-100 aria-selected:border-cyan-400 aria-selected:text-white">
+                class="-mb-px inline-flex items-center gap-2 whitespace-nowrap border-b-4 border-transparent px-4 py-3 text-sm font-semibold text-[#51607A] transition hover:text-[#0047B6] aria-selected:border-[#E84910] aria-selected:text-[#0047B6]">
           <i class="fa-solid fa-book-open" aria-hidden="true"></i> Base de conhecimento
         </button>
         <button type="button" role="tab" data-tab="docs" aria-selected="false"
-                class="-mb-px inline-flex items-center gap-2 whitespace-nowrap border-b-2 border-transparent px-4 py-3 text-sm font-medium text-slate-400 transition hover:text-slate-100 aria-selected:border-cyan-400 aria-selected:text-white">
+                class="-mb-px inline-flex items-center gap-2 whitespace-nowrap border-b-4 border-transparent px-4 py-3 text-sm font-semibold text-[#51607A] transition hover:text-[#0047B6] aria-selected:border-[#E84910] aria-selected:text-[#0047B6]">
           <i class="fa-solid fa-file-lines" aria-hidden="true"></i> Documentações de equipe
         </button>
       </div>
@@ -49,46 +57,51 @@
 
     <!-- Aba 1: base de conhecimento -->
     <section id="view-kb" class="pt-8">
+      <!-- Barra de pesquisa. O label fica oculto (sr-only), mas é lido por leitores de tela. -->
       <label for="search" class="sr-only">Pesquisar na base de conhecimento</label>
-      <div class="flex h-14 items-center gap-3 rounded-xl border border-slate-700/60 bg-[#101a2e] pl-4 pr-3 transition focus-within:border-cyan-400 focus-within:ring-4 focus-within:ring-cyan-400/20">
-        <span class="font-mono text-lg font-bold text-cyan-400" aria-hidden="true">&gt;</span>
+      <div class="flex h-14 items-center gap-3 rounded-xl border border-[#C5D0E2] bg-white pl-4 pr-3 shadow-sm transition focus-within:border-[#0047B6] focus-within:ring-4 focus-within:ring-[#0047B6]/20">
+        <span class="font-mono text-lg font-bold text-[#E84910]" aria-hidden="true">&gt;</span>
         <input id="search" type="text" autocomplete="off" spellcheck="false" enterkeyhint="search"
                placeholder="Pesquise: eixo z, acrílico, backend..."
-               class="min-w-0 flex-1 bg-transparent font-mono text-base text-slate-100 outline-none placeholder:text-slate-500">
+               class="min-w-0 flex-1 bg-transparent font-mono text-base text-[#14213D] outline-none placeholder:text-[#8190A8]">
         <button id="clear" type="button" hidden aria-label="Limpar pesquisa"
-                class="h-9 w-9 rounded-lg text-slate-400 transition hover:bg-slate-800 hover:text-white">
+                class="h-9 w-9 rounded-lg text-[#51607A] transition hover:bg-[#E8EFFB] hover:text-[#0047B6]">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
+      <!-- Filtros de categoria. Os botões usam data-cat; o ativo recebe aria-pressed="true" (fundo azul). Os números (data-count) são preenchidos pelo script.js. -->
       <div id="filters" class="mt-4 flex flex-wrap gap-2" role="group" aria-label="Filtrar por categoria">
         <button type="button" data-cat="all" aria-pressed="true"
-                class="inline-flex items-center gap-2 rounded-lg border border-slate-700/60 bg-[#101a2e] px-3.5 py-2 text-sm font-medium text-slate-400 transition hover:border-slate-500 hover:text-slate-100 aria-pressed:border-cyan-400 aria-pressed:bg-cyan-400 aria-pressed:text-slate-900 aria-pressed:hover:text-slate-900">
-          <i class="fa-solid fa-layer-group" aria-hidden="true"></i> Todas <span class="rounded-full bg-white/10 px-2 text-xs" data-count="all"></span>
+                class="inline-flex items-center gap-2 rounded-lg border border-[#C5D0E2] bg-white px-3.5 py-2 text-sm font-semibold text-[#33425B] transition hover:border-[#0047B6] hover:text-[#0047B6] aria-pressed:border-[#0047B6] aria-pressed:bg-[#0047B6] aria-pressed:text-white aria-pressed:hover:text-white">
+          <i class="fa-solid fa-layer-group" aria-hidden="true"></i> Todas <span class="rounded-full bg-slate-500/15 px-2 text-xs" data-count="all"></span>
         </button>
         <button type="button" data-cat="cnc" aria-pressed="false"
-                class="inline-flex items-center gap-2 rounded-lg border border-slate-700/60 bg-[#101a2e] px-3.5 py-2 text-sm font-medium text-slate-400 transition hover:border-slate-500 hover:text-slate-100 aria-pressed:border-cyan-400 aria-pressed:bg-cyan-400 aria-pressed:text-slate-900 aria-pressed:hover:text-slate-900">
-          <i class="fa-solid fa-gear" aria-hidden="true"></i> Torno CNC <span class="rounded-full bg-white/10 px-2 text-xs" data-count="cnc"></span>
+                class="inline-flex items-center gap-2 rounded-lg border border-[#C5D0E2] bg-white px-3.5 py-2 text-sm font-semibold text-[#33425B] transition hover:border-[#0047B6] hover:text-[#0047B6] aria-pressed:border-[#0047B6] aria-pressed:bg-[#0047B6] aria-pressed:text-white aria-pressed:hover:text-white">
+          <i class="fa-solid fa-gear" aria-hidden="true"></i> Torno CNC <span class="rounded-full bg-slate-500/15 px-2 text-xs" data-count="cnc"></span>
         </button>
         <button type="button" data-cat="web" aria-pressed="false"
-                class="inline-flex items-center gap-2 rounded-lg border border-slate-700/60 bg-[#101a2e] px-3.5 py-2 text-sm font-medium text-slate-400 transition hover:border-slate-500 hover:text-slate-100 aria-pressed:border-cyan-400 aria-pressed:bg-cyan-400 aria-pressed:text-slate-900 aria-pressed:hover:text-slate-900">
-          <i class="fa-solid fa-code" aria-hidden="true"></i> Frontend &amp; Backend <span class="rounded-full bg-white/10 px-2 text-xs" data-count="web"></span>
+                class="inline-flex items-center gap-2 rounded-lg border border-[#C5D0E2] bg-white px-3.5 py-2 text-sm font-semibold text-[#33425B] transition hover:border-[#0047B6] hover:text-[#0047B6] aria-pressed:border-[#0047B6] aria-pressed:bg-[#0047B6] aria-pressed:text-white aria-pressed:hover:text-white">
+          <i class="fa-solid fa-code" aria-hidden="true"></i> Frontend &amp; Backend <span class="rounded-full bg-slate-500/15 px-2 text-xs" data-count="web"></span>
         </button>
         <button type="button" data-cat="senai" aria-pressed="false"
-                class="inline-flex items-center gap-2 rounded-lg border border-slate-700/60 bg-[#101a2e] px-3.5 py-2 text-sm font-medium text-slate-400 transition hover:border-slate-500 hover:text-slate-100 aria-pressed:border-cyan-400 aria-pressed:bg-cyan-400 aria-pressed:text-slate-900 aria-pressed:hover:text-slate-900">
-          <i class="fa-solid fa-video" aria-hidden="true"></i> Projeto SENAI <span class="rounded-full bg-white/10 px-2 text-xs" data-count="senai"></span>
+                class="inline-flex items-center gap-2 rounded-lg border border-[#C5D0E2] bg-white px-3.5 py-2 text-sm font-semibold text-[#33425B] transition hover:border-[#0047B6] hover:text-[#0047B6] aria-pressed:border-[#0047B6] aria-pressed:bg-[#0047B6] aria-pressed:text-white aria-pressed:hover:text-white">
+          <i class="fa-solid fa-video" aria-hidden="true"></i> Projeto SENAI <span class="rounded-full bg-slate-500/15 px-2 text-xs" data-count="senai"></span>
         </button>
       </div>
 
-      <p id="status" class="mb-6 mt-5 font-mono text-sm text-slate-400" aria-live="polite"></p>
+      <!-- Contador de resultados ("N de M tópicos"). aria-live avisa leitores de tela quando muda. -->
+      <p id="status" class="mb-6 mt-5 font-mono text-sm text-[#51607A]" aria-live="polite"></p>
 
+      <!-- Aqui o script.js desenha os cards (duas colunas em telas grandes). -->
       <div id="grid" class="grid items-start gap-4 lg:grid-cols-2" aria-label="Resultados"></div>
 
-      <div id="empty" hidden class="mt-4 rounded-xl border border-dashed border-slate-700 px-6 py-12 text-center">
-        <i class="fa-solid fa-magnifying-glass text-2xl text-slate-400" aria-hidden="true"></i>
-        <p class="mt-3 text-lg font-medium text-white">Nenhum tópico encontrado</p>
-        <p class="mt-1 text-slate-400">Tente outro termo, como eixo z, backend ou acrílico.</p>
-        <button id="reset" type="button" class="mt-5 rounded-lg border border-slate-700/60 bg-[#101a2e] px-3.5 py-2 text-sm font-medium text-slate-300 transition hover:border-cyan-400 hover:text-white">
+      <!-- Mensagem exibida quando nenhum tópico corresponde à pesquisa (escondida por padrão). -->
+      <div id="empty" hidden class="mt-4 rounded-xl border border-dashed border-[#C5D0E2] bg-white px-6 py-12 text-center">
+        <i class="fa-solid fa-magnifying-glass text-2xl text-[#51607A]" aria-hidden="true"></i>
+        <p class="mt-3 text-lg font-semibold text-[#14213D]">Nenhum tópico encontrado</p>
+        <p class="mt-1 text-[#51607A]">Tente outro termo, como eixo z, backend ou acrílico.</p>
+        <button id="reset" type="button" class="mt-5 rounded-lg border border-[#C5D0E2] bg-white px-3.5 py-2 text-sm font-semibold text-[#33425B] transition hover:border-[#0047B6] hover:text-[#0047B6]">
           Limpar pesquisa e filtros
         </button>
       </div>
@@ -101,12 +114,14 @@
 
   </main>
 
-  <footer class="border-t border-slate-800">
-    <div class="mx-auto max-w-6xl px-4 py-6 text-sm text-slate-500">
+  <!-- Rodapé azul com faixa laranja. -->
+  <footer class="border-t-4 border-[#E84910] bg-[#0047B6]">
+    <div class="mx-auto max-w-6xl px-4 py-6 text-sm text-white/85">
       Projeto SENAI de monitoramento de usinagem. Conteúdo de estudo.
     </div>
   </footer>
 
+  <!-- O defer carrega o script depois de montar a página, então ele já encontra todos os elementos. -->
   <script src="script.js" defer></script>
 </body>
 </html>

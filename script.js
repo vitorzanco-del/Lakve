@@ -1,17 +1,37 @@
+// script.js: toda a lógica do Portal de Conhecimento.
+//
+// O arquivo tem 3 partes:
+//   1. Base de conhecimento (DATA): os cards da aba 1, com pesquisa, filtros e hashtags.
+//   2. Documentações de equipe (DOCS): o conteúdo da aba 2.
+//   3. Renderização e eventos: transformam esses dados em HTML e reagem aos cliques.
+//
+// O visual vem das classes do Tailwind escritas dentro das strings de HTML.
 "use strict";
 
 /* ============================================================
    CATEGORIAS (classes completas do Tailwind para cada cor)
    ============================================================ */
+// Cada categoria define o nome, o ícone (FontAwesome) e as cores do card.
+// As classes do Tailwind ficam escritas por inteiro (sem montar texto por pedaços),
+// porque o Tailwind CDN só gera as classes que encontra escritas no código.
+//   text = cor do rótulo e do ícone | bar = barra colorida à esquerda | soft = fundo suave do ícone
 const CATEGORIES = {
-  cnc:   { label: "Torno CNC",          icon: "fa-gear",  text: "text-cyan-400",  bar: "border-l-cyan-400",  soft: "bg-cyan-400/10" },
-  web:   { label: "Frontend & Backend", icon: "fa-code",  text: "text-blue-400",  bar: "border-l-blue-400",  soft: "bg-blue-400/10" },
-  senai: { label: "Projeto SENAI",      icon: "fa-video", text: "text-amber-400", bar: "border-l-amber-400", soft: "bg-amber-400/10" }
+  cnc:   { label: "Torno CNC",          icon: "fa-gear",  text: "text-[#0047B6]", bar: "border-l-[#0047B6]", soft: "bg-[#0047B6]/10" },
+  web:   { label: "Frontend & Backend", icon: "fa-code",  text: "text-[#0F766E]", bar: "border-l-[#0F766E]", soft: "bg-[#0F766E]/10" },
+  senai: { label: "Projeto SENAI",      icon: "fa-video", text: "text-[#C2410C]", bar: "border-l-[#E84910]", soft: "bg-[#E84910]/10" }
 };
 
 /* ============================================================
    BASE DE CONHECIMENTO
    ============================================================ */
+// Lista dos tópicos. Cada item tem:
+//   id      -> identificador único (também usado para abrir/fechar o card)
+//   cat     -> categoria: "cnc", "web" ou "senai" (chave de CATEGORIES)
+//   title   -> título do card
+//   summary -> resumo curto, sempre visível
+//   details -> HTML da explicação completa, mostrada ao expandir o card
+//   tags    -> palavras-chave (sem acento) que viram hashtags clicáveis e entram na pesquisa
+// Para adicionar um tópico, basta copiar um item e editar os campos.
 const DATA = [
   /* ---------- Torno CNC ---------- */
   {
@@ -232,8 +252,13 @@ const DATA = [
 /* ============================================================
    ESTADO E ELEMENTOS
    ============================================================ */
+// Estado da aba "Base de conhecimento":
+//   cat   -> categoria do filtro ativo ("all" = todas)
+//   query -> texto digitado na pesquisa
+//   open  -> ids dos cards abertos (um Set, para o card continuar aberto quando a lista é redesenhada)
 const state = { cat: "all", query: "", open: new Set() };
 
+// Atalhos para os elementos do index.html, buscados uma única vez por id.
 const els = {
   grid:    document.querySelector("#grid"),
   search:  document.querySelector("#search"),
@@ -245,26 +270,37 @@ const els = {
 };
 
 // Estilo do texto expandido (listas, parágrafos, negrito)
+// As classes [&_p], [&_ul]... são "variantes arbitrárias" do Tailwind: estilizam os
+// elementos <p>, <ul>, <li> e <strong> que vêm dentro do HTML de "details".
 const DETAIL_CLASSES =
-  "mx-4 border-t border-slate-700/60 pb-1 pt-4 text-slate-300 " +
+  "mx-4 border-t border-[#D5DDEA] pb-1 pt-4 text-[#33425B] " +
   "[&_p]:mb-3 [&_p]:max-w-[68ch] [&_ul]:mb-3 [&_ul]:list-disc [&_ul]:pl-5 " +
-  "[&_li]:my-1 [&_li]:max-w-[68ch] [&_strong]:font-semibold [&_strong]:text-white";
+  "[&_li]:my-1 [&_li]:max-w-[68ch] [&_strong]:font-semibold [&_strong]:text-[#14213D]";
 
 /* ============================================================
    PESQUISA
    ============================================================ */
 // Minúsculas e sem acentos: "acrílico" e "acrilico" são equivalentes.
 const norm = (s) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+// stripHTML: troca as tags (<p>, <li>...) por espaços, para pesquisar só no texto.
 const stripHTML = (s) => s.replace(/<[^>]*>/g, " ");
+// escapeRegex: protege caracteres especiais (como . ou +) para o texto digitado
+// ser tratado como texto comum dentro de uma expressão regular.
 const escapeRegex = (s) => s.replace(/[.*+?^${}()[\]\\]/g, "\\$&");
 
 // Texto pesquisável de cada item: título, resumo, detalhes e tags.
+// Cria, em cada item, o campo "haystack" (palheiro): um texto único, normalizado,
+// com título + resumo + detalhes + tags. A pesquisa procura as palavras aqui dentro.
 DATA.forEach((item) => {
   item.haystack = norm([item.title, item.summary, stripHTML(item.details), item.tags.join(" ")].join(" "));
 });
 
 // Cada palavra pesquisada tem que aparecer no início de alguma palavra do texto.
 function buildMatchers(query) {
+  // 1. Normaliza o texto digitado e tira o "#" das hashtags.
+  // 2. Separa em palavras (por espaços) e ignora as vazias.
+  // 3. Cria uma regex por palavra: ela precisa aparecer no INÍCIO de alguma palavra
+  //    do haystack (por isso "eix" acha "eixo", mas "ixo" não acha).
   return norm(query)
     .replace(/#/g, " ")
     .split(/\s+/)
@@ -275,23 +311,27 @@ function buildMatchers(query) {
 /* ============================================================
    RENDERIZAÇÃO
    ============================================================ */
+// Monta o HTML de um card (título, resumo, área expansível e hashtags).
 function cardHTML(item) {
+  // Cores, ícone e nome da categoria deste item.
   const c = CATEGORIES[item.cat];
+  // Se o card já estava aberto, ele é desenhado aberto (aria-expanded, seta e altura).
   const open = state.open.has(item.id);
+  // Cada tag vira um botão "#tag"; o data-tag é lido no clique para pesquisar.
   const tags = item.tags
-    .map((t) => `<button type="button" data-tag="${t}" class="tag rounded-md border border-slate-700/60 px-2 py-0.5 font-mono text-xs text-cyan-300 transition hover:border-cyan-400 hover:bg-cyan-400/10">#${t}</button>`)
+    .map((t) => `<button type="button" data-tag="${t}" class="tag rounded-md border border-[#D5DDEA] px-2 py-0.5 font-mono text-xs text-[#0047B6] transition hover:border-[#0047B6] hover:bg-[#0047B6]/10">#${t}</button>`)
     .join("");
 
   return `
-    <article class="card rounded-xl border border-l-4 border-slate-700/60 ${c.bar} bg-[#101a2e]" data-id="${item.id}">
+    <article class="card rounded-xl border border-l-4 border-[#D5DDEA] ${c.bar} bg-white shadow-sm" data-id="${item.id}">
       <button type="button" class="card-head flex w-full items-start gap-4 p-4 text-left" aria-expanded="${open}" aria-controls="body-${item.id}">
         <span class="grid h-10 w-10 flex-none place-items-center rounded-lg ${c.soft} ${c.text}" aria-hidden="true"><i class="fa-solid ${c.icon}"></i></span>
         <span class="min-w-0 flex-1">
           <span class="block text-sm font-medium ${c.text}">${c.label}</span>
-          <span class="mt-0.5 block font-['Barlow_Semi_Condensed',sans-serif] text-xl font-semibold leading-snug text-white">${item.title}</span>
-          <span class="mt-1.5 block text-[0.95rem] text-slate-400">${item.summary}</span>
+          <span class="mt-0.5 block font-['Exo_2',sans-serif] text-xl font-semibold leading-snug text-[#14213D]">${item.title}</span>
+          <span class="mt-1.5 block text-[0.95rem] text-[#51607A]">${item.summary}</span>
         </span>
-        <i class="chev fa-solid fa-chevron-down mt-2 flex-none text-slate-400 transition-transform duration-300 ${open ? "rotate-180" : ""}" aria-hidden="true"></i>
+        <i class="chev fa-solid fa-chevron-down mt-2 flex-none text-[#51607A] transition-transform duration-300 ${open ? "rotate-180" : ""}" aria-hidden="true"></i>
       </button>
       <div id="body-${item.id}" class="card-body grid transition-[grid-template-rows] duration-300 ease-out ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}">
         <div class="min-h-0 overflow-hidden"><div class="${DETAIL_CLASSES}">${item.details}</div></div>
@@ -300,25 +340,34 @@ function cardHTML(item) {
     </article>`;
 }
 
+// Redesenha a lista de cards conforme o filtro de categoria e o texto pesquisado.
 function render() {
+  // Uma regex por palavra digitada; sem texto, a lista vem vazia e todos passam.
   const matchers = buildMatchers(state.query);
+  // Fica com os itens da categoria escolhida em que TODAS as palavras foram encontradas.
   const list = DATA.filter((item) =>
     (state.cat === "all" || item.cat === state.cat) &&
     matchers.every((re) => re.test(item.haystack))
   );
 
+  // Desenha os cards, mostra/oculta a mensagem de "nada encontrado" e o botão X,
+  // e atualiza o contador ("N de M tópicos").
   els.grid.innerHTML = list.map(cardHTML).join("");
   els.empty.hidden = list.length > 0;
   els.clear.hidden = state.query === "";
   els.status.textContent = `${list.length} de ${DATA.length} tópicos`;
 }
 
+// Marca visualmente (aria-pressed) só o botão da categoria ativa.
+// O estilo do botão ativo está nas classes aria-pressed: do index.html.
 function updateFilterButtons() {
   els.filters.querySelectorAll("[data-cat]").forEach((btn) => {
     btn.setAttribute("aria-pressed", String(btn.dataset.cat === state.cat));
   });
 }
 
+// Preenche o número de tópicos ao lado de cada botão de filtro.
+// Roda uma vez, porque a quantidade não muda.
 function fillCounts() {
   document.querySelectorAll("[data-count]").forEach((el) => {
     const c = el.dataset.count;
@@ -329,11 +378,15 @@ function fillCounts() {
 /* ============================================================
    AÇÕES
    ============================================================ */
+// Abre ou fecha um card sem redesenhar a lista (mantém a animação suave).
+// A altura anima de grid-rows-[0fr] (fechado) para grid-rows-[1fr] (aberto).
 function toggleCard(card) {
+  // Inverte o estado do card e guarda no Set "state.open".
   const id = card.dataset.id;
   const open = !state.open.has(id);
   if (open) state.open.add(id); else state.open.delete(id);
 
+  // Atualiza acessibilidade (aria-expanded), altura da área de detalhes e giro da seta.
   card.querySelector(".card-head").setAttribute("aria-expanded", String(open));
   const body = card.querySelector(".card-body");
   body.classList.toggle("grid-rows-[1fr]", open);
@@ -341,12 +394,14 @@ function toggleCard(card) {
   card.querySelector(".chev").classList.toggle("rotate-180", open);
 }
 
+// Define o texto da pesquisa em um só lugar: atualiza o estado, o campo e a lista.
 function setQuery(value) {
   state.query = value;
   els.search.value = value;
   render();
 }
 
+// Clique numa hashtag: volta para "Todas", pesquisa pela tag e rola até a barra de pesquisa.
 function applyTag(tag) {
   state.cat = "all";
   updateFilterButtons();
@@ -354,6 +409,7 @@ function applyTag(tag) {
   els.search.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
+// Botão "Limpar pesquisa e filtros": volta ao estado inicial e foca a pesquisa.
 function resetAll() {
   state.cat = "all";
   updateFilterButtons();
@@ -364,15 +420,18 @@ function resetAll() {
 /* ============================================================
    EVENTOS
    ============================================================ */
+// Pesquisa em tempo real: a cada letra digitada, a lista é filtrada de novo.
 els.search.addEventListener("input", (e) => {
   state.query = e.target.value;
   render();
 });
 
+// Tecla Esc limpa a pesquisa.
 els.search.addEventListener("keydown", (e) => {
   if (e.key === "Escape") setQuery("");
 });
 
+// Botão X dentro da barra de pesquisa.
 els.clear.addEventListener("click", () => {
   setQuery("");
   els.search.focus();
@@ -380,6 +439,7 @@ els.clear.addEventListener("click", () => {
 
 els.reset.addEventListener("click", resetAll);
 
+// Clique nos botões de categoria (delegação: um único ouvinte para todos os botões).
 els.filters.addEventListener("click", (e) => {
   const btn = e.target.closest("[data-cat]");
   if (!btn) return;
@@ -389,6 +449,10 @@ els.filters.addEventListener("click", (e) => {
 });
 
 // Delegação: hashtags pesquisam; o resto do card abre e fecha.
+// Um único ouvinte para todos os cards (delegação de eventos), que decide pelo alvo do clique:
+//   1. clicou numa hashtag -> pesquisa pela tag
+//   2. clicou dentro do texto expandido ou da área das tags -> não faz nada
+//   3. clicou em qualquer outra parte do card -> abre/fecha
 els.grid.addEventListener("click", (e) => {
   const tag = e.target.closest(".tag");
   if (tag) {
@@ -403,6 +467,7 @@ els.grid.addEventListener("click", (e) => {
 /* ============================================================
    INÍCIO
    ============================================================ */
+// Primeira renderização da página.
 fillCounts();
 render();
 
@@ -413,7 +478,15 @@ render();
    axion ou neonix.
    Blocos: p, h3, ul, ol, table, note, code, qa (perguntas e respostas). Use `código` e **negrito**.
    ============================================================ */
+// Cada chave é o id de uma equipe (o mesmo final do id do card "Equipe ...").
+// Campos de cada documentação:
+//   kicker   -> texto pequeno acima do título
+//   title / subtitle -> título e descrição
+//   meta     -> pares [rótulo, valor] mostrados no cabeçalho (opcional)
+//   source   -> nota de rodapé com a origem do conteúdo
+//   sections -> lista de seções; cada uma tem "title" e "blocks" (veja os tipos de bloco acima)
 const DOCS = {
+  // Equipe ComunicCNC: documentação do sistema ConecTorno.
   comunic: {
     kicker: "Documentação do sistema",
     title: "ConecTorno",
@@ -525,6 +598,7 @@ const DOCS = {
       ] }
     ]
   },
+  // Equipe Neonix: relatório de andamento.
   neonix: {
     kicker: "Relatório da equipe",
     title: "Relatório Equipe Neonix",
@@ -563,6 +637,7 @@ const DOCS = {
       ] }
     ]
   },
+  // Equipe ThirteenTech: entrevista com o professor (blocos "qa" = pergunta e resposta).
   thirteentech: {
     kicker: "Entrevista com o professor",
     title: "Entrevista com o professor",
@@ -611,6 +686,7 @@ const DOCS = {
       ] }
     ]
   },
+  // Equipe Axión: documentação técnica do Raspberry Pi.
   axion: {
     kicker: "Documentação técnica",
     title: "Projeto Conectorno",
@@ -707,6 +783,7 @@ const DOCS = {
       ] }
     ]
   },
+  // Equipe Lakave: organização da documentação e do site.
   lakave: {
     kicker: "Organização da documentação",
     title: "Documentação do projeto",
@@ -781,120 +858,148 @@ const DOCS = {
 };
 
 // Equipes = os cards "Equipe ..." da base de conhecimento (id = parte final do id do card).
+// Monta a lista de equipes a partir dos cards "Equipe ..." da base de conhecimento:
+// filtra os itens com a tag "equipes", tira "senai-" do id e "Equipe " do título.
+// Assim, criar um card novo de equipe já faz a equipe aparecer na aba de documentações.
 const TEAMS = DATA
   .filter((i) => i.cat === "senai" && i.tags.includes("equipes"))
   .map((i) => ({ id: i.id.replace("senai-", ""), name: i.title.replace("Equipe ", ""), role: i.summary }));
 
+// esc: escapa & < > para o texto das documentações não ser lido como HTML.
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+// fmt: escapa o texto e aplica a formatação simples usada em DOCS:
+//   `código` vira <code> e **negrito** vira <strong>.
 const fmt = (s) => esc(s)
-  .replace(/`([^`]+)`/g, '<code class="rounded bg-slate-800 px-1.5 py-0.5 font-mono text-[0.85em] text-cyan-300">$1</code>')
+  .replace(/`([^`]+)`/g, '<code class="rounded bg-[#E8EFFB] px-1.5 py-0.5 font-mono text-[0.85em] text-[#0A3A8F]">$1</code>')
   .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
 
-const HEAD_FONT = "font-['Barlow_Semi_Condensed',sans-serif]";
+// Classe da fonte dos títulos (Exo 2), reutilizada em vários pontos.
+const HEAD_FONT = "font-['Exo_2',sans-serif]";
 
+// Converte um bloco de DOCS em HTML. O tipo é definido pela chave do objeto:
+//   p (parágrafo) | h3 (subtítulo) | ul / ol (listas) | code (código)
+//   note ([título, texto] em destaque) | qa (lista de [pergunta, resposta]) | table ({ head, rows })
 function blockHTML(b) {
-  if (b.p)  return `<p class="mb-3 max-w-[72ch] text-slate-300">${fmt(b.p)}</p>`;
-  if (b.h3) return `<h3 class="mb-2 mt-7 text-lg font-semibold text-white">${fmt(b.h3)}</h3>`;
+  if (b.p)  return `<p class="mb-3 max-w-[72ch] text-[#33425B]">${fmt(b.p)}</p>`;
+  if (b.h3) return `<h3 class="mb-2 mt-7 text-lg font-semibold text-[#14213D]">${fmt(b.h3)}</h3>`;
   if (b.ul) {
     const li = b.ul.map((i) => `<li>${fmt(i)}</li>`).join("");
-    return `<ul class="mb-4 list-disc space-y-1.5 pl-5 text-slate-300 marker:text-cyan-400">${li}</ul>`;
+    return `<ul class="mb-4 list-disc space-y-1.5 pl-5 text-[#33425B] marker:text-[#E84910]">${li}</ul>`;
   }
+  // Lista numerada: cada item pode ser texto ou [título em negrito, texto].
   if (b.ol) {
     const li = b.ol
       .map((it) => (Array.isArray(it)
-        ? `<li><strong class="text-white">${fmt(it[0])}</strong> ${fmt(it[1])}</li>`
+        ? `<li><strong class="text-[#14213D]">${fmt(it[0])}</strong> ${fmt(it[1])}</li>`
         : `<li>${fmt(it)}</li>`))
       .join("");
-    return `<ol class="mb-4 list-decimal space-y-2.5 pl-5 text-slate-300 marker:text-cyan-400">${li}</ol>`;
+    return `<ol class="mb-4 list-decimal space-y-2.5 pl-5 text-[#33425B] marker:text-[#E84910]">${li}</ol>`;
   }
+  // Bloco de código: junta as linhas com quebra de linha dentro de <pre>.
   if (b.code) {
-    return `<pre class="mb-4 overflow-x-auto rounded-lg border border-slate-700/60 bg-[#0b1426] p-4 font-mono text-sm text-cyan-200">${esc(b.code.join("\n"))}</pre>`;
+    return `<pre class="mb-4 overflow-x-auto rounded-lg border border-[#D5DDEA] bg-[#0A2347] p-4 font-mono text-sm text-[#CFE0FF]">${esc(b.code.join("\n"))}</pre>`;
   }
+  // Aviso em destaque (faixa laranja): note[0] é o título e note[1] o texto.
   if (b.note) {
-    return `<div class="mb-4 rounded-lg border-l-4 border-amber-400 bg-amber-400/10 p-4 text-slate-200"><strong class="text-amber-300">${fmt(b.note[0])}</strong> ${fmt(b.note[1])}</div>`;
+    return `<div class="mb-4 rounded-lg border-l-4 border-[#E84910] bg-[#FDEEE8] p-4 text-[#1B2A41]"><strong class="text-[#C2410C]">${fmt(b.note[0])}</strong> ${fmt(b.note[1])}</div>`;
   }
+  // Perguntas e respostas: cada par vira uma caixinha.
   if (b.qa) {
     return b.qa
-      .map(([q, a]) => `<div class="mb-3 rounded-lg border border-slate-700/60 bg-[#101a2e] p-4"><p class="font-medium text-white">${fmt(q)}</p><p class="mt-1.5 max-w-[72ch] text-slate-300">${fmt(a)}</p></div>`)
+      .map(([q, a]) => `<div class="mb-3 rounded-lg border border-[#D5DDEA] bg-white p-4"><p class="font-medium text-[#14213D]">${fmt(q)}</p><p class="mt-1.5 max-w-[72ch] text-[#33425B]">${fmt(a)}</p></div>`)
       .join("");
   }
+  // Tabela: "head" são os cabeçalhos e "rows" as linhas (cada linha é uma lista de células).
+  // O contêiner com overflow-x-auto permite rolar de lado em telas pequenas.
   if (b.table) {
-    const th = b.table.head.map((h) => `<th class="px-4 py-2.5 font-semibold text-slate-200">${fmt(h)}</th>`).join("");
+    const th = b.table.head.map((h) => `<th class="px-4 py-2.5 font-semibold text-[#1B2A41]">${fmt(h)}</th>`).join("");
     const rows = b.table.rows
-      .map((r) => `<tr>${r.map((c) => `<td class="border-t border-slate-800 px-4 py-2.5 align-top text-slate-300">${fmt(c)}</td>`).join("")}</tr>`)
+      .map((r) => `<tr>${r.map((c) => `<td class="border-t border-[#E1E7F1] px-4 py-2.5 align-top text-[#33425B]">${fmt(c)}</td>`).join("")}</tr>`)
       .join("");
-    return `<div class="mb-4 overflow-x-auto rounded-lg border border-slate-700/60"><table class="w-full min-w-[34rem] text-left text-sm"><thead class="bg-[#16233d]"><tr>${th}</tr></thead><tbody>${rows}</tbody></table></div>`;
+    return `<div class="mb-4 overflow-x-auto rounded-lg border border-[#D5DDEA]"><table class="w-full min-w-[34rem] text-left text-sm"><thead class="bg-[#E8EFFB]"><tr>${th}</tr></thead><tbody>${rows}</tbody></table></div>`;
   }
+  // Tipo de bloco desconhecido: não desenha nada.
   return "";
 }
 
+// Tela inicial da aba de documentações: um card por equipe.
 function teamsHTML() {
   const cards = TEAMS.map((t) => {
+    // true se a equipe já tem documentação em DOCS (o card fica clicável).
+    // Se não tiver, aparece o selo "Ainda sem documentação" e o card não abre.
     const has = Boolean(DOCS[t.id]);
-    const badge = has ? "bg-cyan-400/15 text-cyan-300" : "bg-slate-700/40 text-slate-400";
+    const badge = has ? "bg-[#0047B6]/10 text-[#0047B6]" : "bg-slate-200 text-[#51607A]";
     const body = `
       <span class="flex items-start justify-between gap-3">
-        <span class="${HEAD_FONT} text-xl font-semibold text-white">${t.name}</span>
+        <span class="${HEAD_FONT} text-xl font-semibold text-[#14213D]">${t.name}</span>
         <span class="flex-none rounded-full px-2.5 py-0.5 text-xs font-medium ${badge}">${has ? "Documentação disponível" : "Ainda sem documentação"}</span>
       </span>
-      <span class="mt-2 block text-sm text-slate-400">${t.role}</span>
-      ${has ? '<span class="mt-4 inline-flex items-center gap-2 text-sm font-medium text-cyan-400"><i class="fa-solid fa-file-lines" aria-hidden="true"></i> Abrir documentação</span>' : ""}`;
+      <span class="mt-2 block text-sm text-[#51607A]">${t.role}</span>
+      ${has ? '<span class="mt-4 inline-flex items-center gap-2 text-sm font-medium text-[#0047B6]"><i class="fa-solid fa-file-lines" aria-hidden="true"></i> Abrir documentação</span>' : ""}`;
     return has
-      ? `<button type="button" data-doc="${t.id}" class="rounded-xl border border-l-4 border-slate-700/60 border-l-cyan-400 bg-[#101a2e] p-4 text-left transition hover:border-cyan-400/70">${body}</button>`
-      : `<div class="rounded-xl border border-l-4 border-slate-800 border-l-slate-600 bg-[#101a2e]/60 p-4">${body}</div>`;
+      ? `<button type="button" data-doc="${t.id}" class="rounded-xl border border-l-4 border-[#D5DDEA] border-l-[#E84910] bg-white p-4 text-left transition hover:border-[#0047B6]/60">${body}</button>`
+      : `<div class="rounded-xl border border-l-4 border-[#E1E7F1] border-l-slate-300 bg-white/60 p-4">${body}</div>`;
   }).join("");
 
   return `
-    <p class="mb-5 max-w-2xl text-slate-400">Cada equipe reúne aqui a documentação técnica do seu trabalho. Escolha uma equipe para abrir o documento.</p>
+    <p class="mb-5 max-w-2xl text-[#51607A]">Cada equipe reúne aqui a documentação técnica do seu trabalho. Escolha uma equipe para abrir o documento.</p>
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">${cards}</div>`;
 }
 
+// Tela de leitura de uma documentação: cabeçalho, índice lateral e seções.
 function docHTML(id) {
+  // d = conteúdo da equipe; team = nome da equipe (para o texto "Equipe X · ...").
   const d = DOCS[id];
   const team = TEAMS.find((t) => t.id === id);
   const meta = d.meta
-    ? `<dl class="mt-5 grid gap-4 text-sm sm:grid-cols-2">${d.meta.map(([k, v]) => `<div><dt class="font-medium text-slate-200">${k}</dt><dd class="mt-0.5 text-slate-400">${v}</dd></div>`).join("")}</dl>`
+    ? `<dl class="mt-5 grid gap-4 text-sm sm:grid-cols-2">${d.meta.map(([k, v]) => `<div><dt class="font-medium text-[#1B2A41]">${k}</dt><dd class="mt-0.5 text-[#51607A]">${v}</dd></div>`).join("")}</dl>`
     : "";
+  // Índice "Neste documento": um botão por seção (data-goto guarda o id de destino).
   const nav = d.sections
-    .map((s, i) => `<button type="button" data-goto="doc-s${i + 1}" class="block w-full rounded-md px-3 py-1.5 text-left text-sm text-slate-400 transition hover:bg-slate-800 hover:text-white">${esc(s.title)}</button>`)
+    .map((s, i) => `<button type="button" data-goto="doc-s${i + 1}" class="block w-full rounded-md px-3 py-1.5 text-left text-sm text-[#51607A] transition hover:bg-[#E8EFFB] hover:text-[#0047B6]">${esc(s.title)}</button>`)
     .join("");
+  // Cada seção recebe o id doc-s1, doc-s2... usado pelo índice para rolar até ela.
   const sections = d.sections
     .map((s, i) => `
       <section id="doc-s${i + 1}" class="mb-10 scroll-mt-24">
-        <h2 class="${HEAD_FONT} mb-4 border-b border-slate-800 pb-2 text-2xl font-semibold text-white">${esc(s.title)}</h2>
+        <h2 class="${HEAD_FONT} mb-4 border-b border-[#E1E7F1] pb-2 text-2xl font-semibold text-[#14213D]">${esc(s.title)}</h2>
         ${s.blocks.map(blockHTML).join("")}
       </section>`)
     .join("");
 
   return `
-    <button type="button" data-back class="mb-6 inline-flex items-center gap-2 text-sm text-slate-400 transition hover:text-white">
+    <button type="button" data-back class="mb-6 inline-flex items-center gap-2 text-sm text-[#51607A] transition hover:text-[#0047B6]">
       <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Voltar às equipes
     </button>
-    <header class="mb-8 rounded-xl border border-slate-700/60 bg-[#101a2e] p-6">
-      <p class="text-sm font-medium text-cyan-400">Equipe ${team.name} · ${d.kicker}</p>
-      <h2 class="${HEAD_FONT} mt-1 text-3xl font-bold text-white sm:text-4xl">${d.title}</h2>
-      <p class="mt-2 max-w-2xl text-lg text-slate-300">${d.subtitle}</p>
+    <header class="mb-8 rounded-xl border border-[#D5DDEA] bg-white p-6">
+      <p class="text-sm font-medium text-[#0047B6]">Equipe ${team.name} · ${d.kicker}</p>
+      <h2 class="${HEAD_FONT} mt-1 text-3xl font-bold text-[#14213D] sm:text-4xl">${d.title}</h2>
+      <p class="mt-2 max-w-2xl text-lg text-[#33425B]">${d.subtitle}</p>
       ${meta}
     </header>
     <div class="lg:grid lg:grid-cols-[15rem_1fr] lg:gap-10">
       <nav class="mb-8 lg:sticky lg:top-24 lg:mb-0 lg:self-start" aria-label="Índice da documentação">
-        <p class="mb-2 px-3 text-sm font-semibold text-slate-500">Neste documento</p>
+        <p class="mb-2 px-3 text-sm font-semibold text-[#6B7A93]">Neste documento</p>
         <div class="grid grid-cols-1 gap-0.5 sm:grid-cols-2 lg:block">${nav}</div>
       </nav>
       <article class="min-w-0">
         ${sections}
-        <p class="text-sm text-slate-500">${d.source}</p>
+        <p class="text-sm text-[#6B7A93]">${d.source}</p>
       </article>
     </div>`;
 }
 
+// docsRoot: área onde a aba 2 é desenhada. docsState.doc guarda o id da documentação aberta
+// (null = mostra a lista de equipes).
 const docsRoot = document.querySelector("#docs-root");
 const docsState = { doc: null };
 
+// Mostra a documentação aberta ou, se não houver nenhuma, a lista de equipes.
 function renderDocs() {
   docsRoot.innerHTML = docsState.doc ? docHTML(docsState.doc) : teamsHTML();
 }
 
+// Troca de aba: marca a aba selecionada (aria-selected) e mostra só a seção correspondente.
 function showView(view) {
   document.querySelectorAll("[data-tab]").forEach((t) => {
     t.setAttribute("aria-selected", String(t.dataset.tab === view));
@@ -903,10 +1008,15 @@ function showView(view) {
   document.querySelector("#view-docs").hidden = view !== "docs";
 }
 
+// Clique nas abas "Base de conhecimento" e "Documentações de equipe".
 document.querySelectorAll("[data-tab]").forEach((t) => {
   t.addEventListener("click", () => showView(t.dataset.tab));
 });
 
+// Delegação de cliques na aba 2:
+//   [data-doc]  -> abrir a documentação de uma equipe
+//   [data-back] -> voltar à lista de equipes
+//   [data-goto] -> rolar até uma seção do documento aberto (índice lateral)
 docsRoot.addEventListener("click", (e) => {
   const open = e.target.closest("[data-doc]");
   const back = e.target.closest("[data-back]");
@@ -921,4 +1031,5 @@ docsRoot.addEventListener("click", (e) => {
   }
 });
 
+// Primeira renderização da aba 2 (lista de equipes).
 renderDocs();

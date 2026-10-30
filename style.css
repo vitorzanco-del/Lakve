@@ -1,33 +1,39 @@
-/* Extras opcionais.
+/* style.css: extras opcionais.
    O visual principal vem das classes do Tailwind no HTML e no JS,
    por isso o site continua legível mesmo se este arquivo não carregar.
+   Paleta inspirada no SENAI: azul (#0047B6) com detalhe em laranja (#E84910).
    Aqui ficam só a grade de fundo, o foco visível e a barra de rolagem. */
 
 html {
-  scroll-behavior: smooth;
-  background-color: #0a1120;
-  color-scheme: dark;
+  scroll-behavior: smooth;      /* rolagem suave ao clicar no índice ou nas tags */
+  background-color: #F2F5FA;    /* fundo claro (também aparece no "overscroll") */
+  color-scheme: light;          /* campos e barras do navegador no tema claro */
 }
 
-/* grade discreta, como papel de desenho técnico */
+/* grade discreta, como papel de desenho técnico:
+   duas linhas finas (horizontal e vertical) repetidas a cada 40px */
 body {
   background-image:
-    linear-gradient(rgba(34, 211, 238, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(34, 211, 238, 0.035) 1px, transparent 1px);
+    linear-gradient(rgba(0, 71, 182, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 71, 182, 0.045) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
+/* contorno laranja ao navegar pelo teclado (Tab) */
 :focus-visible {
-  outline: 2px solid #22d3ee;
+  outline: 2px solid #E84910;
   outline-offset: 2px;
 }
 
+/* a barra de pesquisa já tem seu próprio destaque (borda azul + brilho no HTML) */
 #search:focus-visible { outline: none; }
 
+/* barra de rolagem fina e azulada (Chrome, Edge e Safari) */
 ::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-thumb { background: #1f2e4a; border-radius: 8px; }
-::-webkit-scrollbar-thumb:hover { background: #2c4168; }
+::-webkit-scrollbar-thumb { background: #B7C5DD; border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: #8FA5C8; }
 
+/* respeita quem pediu menos animação no sistema: desliga rolagem suave e transições */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: 0.01ms !important; }
