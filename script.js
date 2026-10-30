@@ -28,7 +28,7 @@ const DATA = [
     id: "cnc-automacao",
     cat: "cnc",
     title: "Como funciona a automação computadorizada?",
-    summary: "Um programa define cada movimento e o comando da máquina executa-o com precisão.",
+    summary: "Um programa define cada movimento e o comando da máquina o executa com precisão.",
     details: `
       <p>CNC significa Comando Numérico Computadorizado. O operador (ou um software CAM) escreve um programa, normalmente em código G, com as posições, velocidades e avanços da ferramenta. O comando lê cada linha e aciona os motores da máquina.</p>
       <ul>
@@ -58,7 +58,7 @@ const DATA = [
     title: "O que é a IHM?",
     summary: "Interface Homem-Máquina: o painel onde o operador comanda o torno.",
     details: `
-      <p>A IHM é o painel com ecrã e teclado através do qual o operador conversa com o torno. Normalmente permite:</p>
+      <p>A IHM é o painel com tela e teclado através do qual o operador conversa com o torno. Normalmente permite:</p>
       <ul>
         <li>Carregar, editar e simular programas</li>
         <li>Definir o zero da peça e corrigir as ferramentas</li>
@@ -73,7 +73,7 @@ const DATA = [
     title: "Que materiais são usinados?",
     summary: "Metais e plásticos técnicos, cada um com os seus parâmetros de corte.",
     details: `
-      <p>Os materiais mais comuns num torno são:</p>
+      <p>Os materiais mais comuns em um torno são:</p>
       <ul>
         <li>Aços carbono e aço inoxidável</li>
         <li>Alumínio, latão, cobre e bronze</li>
@@ -88,9 +88,9 @@ const DATA = [
     id: "web-frontend",
     cat: "web",
     title: "O que é o Frontend?",
-    summary: "A interface gráfica que o utilizador vê, executada no navegador.",
+    summary: "A interface gráfica que o usuário vê, executada no navegador.",
     details: `
-      <p>O frontend é tudo o que o utilizador vê e toca. É executado no navegador do próprio utilizador e é construído com:</p>
+      <p>O frontend é tudo o que o usuário vê e toca. É executado no navegador do próprio usuário e é construído com:</p>
       <ul>
         <li><strong>HTML:</strong> a estrutura da página.</li>
         <li><strong>CSS:</strong> a aparência, as cores, o espaçamento e a responsividade.</li>
@@ -103,24 +103,24 @@ const DATA = [
     id: "web-backend",
     cat: "web",
     title: "O que é o Backend?",
-    summary: "O servidor que aplica as regras de negócio e guarda os dados.",
+    summary: "O servidor que aplica as regras de negócio e armazena os dados.",
     details: `
-      <p>O backend corre no servidor, longe dos olhos do utilizador. Aplica as regras de negócio, valida os dados recebidos e guarda a informação.</p>
+      <p>O backend roda no servidor, longe dos olhos do usuário. Aplica as regras de negócio, valida os dados recebidos e armazena as informações.</p>
       <ul>
-        <li><strong>Bases de dados:</strong> MySQL e PostgreSQL.</li>
+        <li><strong>Bancos de dados:</strong> MySQL e PostgreSQL.</li>
         <li><strong>Linguagens e plataformas:</strong> Node.js, Python e Java.</li>
       </ul>
-      <p>O utilizador nunca fala diretamente com a base de dados: é o backend que decide o que pode ser lido ou gravado.</p>`,
+      <p>O usuário nunca fala diretamente com o banco de dados: é o backend que decide o que pode ser lido ou gravado.</p>`,
     tags: ["backend", "servidor", "regras de negocio", "mysql", "postgresql", "nodejs", "python", "java"]
   },
   {
     id: "web-comunicacao",
     cat: "web",
     title: "Como o Frontend e o Backend se comunicam?",
-    summary: "O frontend faz pedidos a uma API e o backend responde com dados.",
+    summary: "O frontend faz requisições a uma API e o backend responde com dados.",
     details: `
-      <p>O frontend envia pedidos HTTP a uma API e o backend responde, normalmente em formato JSON. O frontend usa essa resposta para atualizar o ecrã sem recarregar a página.</p>
-      <p>Exemplo: o navegador pede a lista de tópicos, o servidor consulta a base de dados e devolve a resposta.</p>`,
+      <p>O frontend envia requisições HTTP a uma API e o backend responde, normalmente em formato JSON. O frontend usa essa resposta para atualizar a tela sem recarregar a página.</p>
+      <p>Exemplo: o navegador solicita a lista de tópicos, o servidor consulta o banco de dados e devolve a resposta.</p>`,
     tags: ["frontend x backend", "api", "http", "json", "integracao"]
   },
 
@@ -129,59 +129,45 @@ const DATA = [
     id: "senai-objetivo",
     cat: "senai",
     title: "Qual é o objetivo do projeto?",
-    summary: "Ver a usinagem num monitor remoto, sem ir até à máquina.",
+    summary: "Ver a usinagem em um monitor remoto, sem ir até a máquina.",
     details: `
-      <p>Permitir que o professor veja a usinagem num monitor remoto, sem ter de se deslocar até à máquina. A imagem também pode ser transmitida para a turma através de um projetor, para que todos acompanhem o corte.</p>`,
+      <p>Permitir que o professor veja a usinagem em um monitor remoto, sem precisar se deslocar até a máquina. A imagem também pode ser transmitida para a turma por meio de um projetor, para que todos acompanhem o corte.</p>`,
     tags: ["objetivo", "visualizacao remota", "monitor", "projetor", "professor", "turma"]
-  },
-  {
-    id: "senai-camera",
-    cat: "senai",
-    title: "Como é protegida a câmara?",
-    summary: "Uma caixa com vidro acrílico protege a câmara de cavacos, calor e fluido de corte.",
-    details: `
-      <p>A câmara fica dentro de uma caixa de proteção com vidro acrílico. O vidro permite filmar e protege o equipamento contra:</p>
-      <ul>
-        <li>Cavacos quentes de metal projetados pelo corte</li>
-        <li>Temperaturas elevadas na zona de usinagem</li>
-        <li>Fluido de corte pulverizado</li>
-      </ul>`,
-    tags: ["camera", "acrilico", "protecao", "cavacos", "fluido de corte"]
   },
   {
     id: "senai-lakave",
     cat: "senai",
-    title: "Equipa Lakave",
+    title: "Equipe Lakave",
     summary: "Documentação do projeto para o GitHub.",
     details: `
       <p>Responsável pela documentação do projeto, que é organizada e publicada no GitHub.</p>
       <ul>
-        <li>Documentação de todas as equipas</li>
-        <li>Organização da documentação de cada equipa</li>
+        <li>Documentação de todas as equipes</li>
+        <li>Organização da documentação de cada equipe</li>
         <li>Site para conhecer melhor o projeto</li>
-        <li>Envio da documentação para um repositório no GitHub (veja a aba Documentações de equipa)</li>
+        <li>Envio da documentação para um repositório no GitHub (veja a aba Documentações de equipe)</li>
       </ul>`,
-    tags: ["equipas", "lakave", "documentacao", "github", "repositorio", "site", "git"]
+    tags: ["equipes", "lakave", "documentacao", "github", "repositorio", "site", "git"]
   },
   {
     id: "senai-comunic",
     cat: "senai",
-    title: "Equipa ComunicCNC",
-    summary: "Servidor, integração frontend x backend e ligação Bluetooth/rede.",
+    title: "Equipe ComunicCNC",
+    summary: "Servidor, integração frontend x backend e conexão Bluetooth/rede.",
     details: `
-      <p>Responsável pela parte de software que liga tudo:</p>
+      <p>Responsável pela parte de software que conecta tudo:</p>
       <ul>
         <li>Servidor</li>
         <li>Integração entre frontend e backend</li>
-        <li>Ligação por Bluetooth e por rede</li>
-        <li>Documentação do sistema ConecTorno (veja a aba Documentações de equipa)</li>
+        <li>Conexão por Bluetooth e por rede</li>
+        <li>Documentação do sistema ConecTorno (veja a aba Documentações de equipe)</li>
       </ul>`,
-    tags: ["equipas", "comuniccnc", "conectorno", "documentacao", "servidor", "bluetooth", "rede", "backend", "frontend x backend"]
+    tags: ["equipes", "comuniccnc", "conectorno", "documentacao", "servidor", "bluetooth", "rede", "backend", "frontend x backend"]
   },
   {
     id: "senai-thirteentech",
     cat: "senai",
-    title: "Equipa ThirteenTech",
+    title: "Equipe ThirteenTech",
     summary: "Entrevistas com o professor, medições físicas e organização no Trello.",
     details: `
       <p>Responsável pelo levantamento de requisitos e pela organização do trabalho:</p>
@@ -189,38 +175,38 @@ const DATA = [
         <li>Entrevistas com o professor</li>
         <li>Medições físicas</li>
         <li>Organização das tarefas no Trello</li>
-        <li>Documentação da entrevista (veja a aba Documentações de equipa)</li>
+        <li>Documentação da entrevista (veja a aba Documentações de equipe)</li>
       </ul>`,
-    tags: ["equipas", "thirteentech", "entrevistas", "medicoes", "trello", "documentacao", "prancheta"]
+    tags: ["equipes", "thirteentech", "entrevistas", "medicoes", "trello", "documentacao", "prancheta"]
   },
   {
     id: "senai-axion",
     cat: "senai",
-    title: "Equipa Axión",
-    summary: "Impressão 3D da caixa do Raspberry Pi, sistema operativo e suporte VESA.",
+    title: "Equipe Axión",
+    summary: "Impressão 3D da caixa do Raspberry Pi, sistema operacional e suporte VESA.",
     details: `
       <p>Responsável pela parte física do equipamento:</p>
       <ul>
         <li>Impressão 3D da caixa do Raspberry Pi</li>
-        <li>Instalação do sistema operativo (operacional) no Raspberry Pi</li>
+        <li>Instalação do sistema operacional no Raspberry Pi</li>
         <li>Montagem do suporte VESA no monitor</li>
-        <li>Documentação técnica do projeto (veja a aba Documentações de equipa)</li>
+        <li>Documentação técnica do projeto (veja a aba Documentações de equipe)</li>
       </ul>`,
-    tags: ["equipas", "axion", "impressao 3d", "raspberry pi", "sistema operacional", "vesa", "documentacao", "wifi", "hotspot", "ssh"]
+    tags: ["equipes", "axion", "impressao 3d", "raspberry pi", "sistema operacional", "vesa", "documentacao", "wifi", "hotspot", "ssh"]
   },
   {
     id: "senai-neonix",
     cat: "senai",
-    title: "Equipa Neonix",
+    title: "Equipe Neonix",
     summary: "Protótipo do site e roteiro do vídeo de apresentação.",
     details: `
       <p>Responsável pela comunicação do projeto:</p>
       <ul>
         <li>Protótipo do site</li>
         <li>Roteiro do vídeo de apresentação</li>
-        <li>Relatório de atividades (veja a aba Documentações de equipa)</li>
+        <li>Relatório de atividades (veja a aba Documentações de equipe)</li>
       </ul>`,
-    tags: ["equipas", "neonix", "prototipo", "site", "video", "roteiro", "figma", "trello", "relatorio", "documentacao"]
+    tags: ["equipes", "neonix", "prototipo", "site", "video", "roteiro", "figma", "trello", "relatorio", "documentacao"]
   },
   {
     id: "senai-materiais",
@@ -277,7 +263,7 @@ DATA.forEach((item) => {
   item.haystack = norm([item.title, item.summary, stripHTML(item.details), item.tags.join(" ")].join(" "));
 });
 
-// Cada palavra pesquisada tem de aparecer no início de alguma palavra do texto.
+// Cada palavra pesquisada tem que aparecer no início de alguma palavra do texto.
 function buildMatchers(query) {
   return norm(query)
     .replace(/#/g, " ")
@@ -421,9 +407,9 @@ fillCounts();
 render();
 
 /* ============================================================
-   DOCUMENTAÇÕES DE EQUIPA
-   Para acrescentar o documento de outra equipa, crie uma entrada
-   em DOCS com o id da equipa: lakave, comunic, thirteentech,
+   DOCUMENTAÇÕES DE EQUIPE
+   Para acrescentar o documento de outra equipe, crie uma entrada
+   em DOCS com o id da equipe: lakave, comunic, thirteentech,
    axion ou neonix.
    Blocos: p, h3, ul, ol, table, note, code, qa (perguntas e respostas). Use `código` e **negrito**.
    ============================================================ */
@@ -540,7 +526,7 @@ const DOCS = {
     ]
   },
   neonix: {
-    kicker: "Relatório da equipa",
+    kicker: "Relatório da equipe",
     title: "Relatório Equipe Neonix",
     subtitle: "Protótipo do site e roteiro do vídeo de apresentação.",
     meta: [
@@ -580,15 +566,15 @@ const DOCS = {
   thirteentech: {
     kicker: "Entrevista com o professor",
     title: "Entrevista com o professor",
-    subtitle: "Perguntas e respostas da entrevista feita pela equipa ThirteenTech para entender como o projeto é consultado durante a usinagem.",
+    subtitle: "Perguntas e respostas da entrevista feita pela equipe ThirteenTech para entender como o projeto é consultado durante a usinagem.",
     meta: [
-      ["Responsabilidades da equipa", "Entrevistas com o professor, medições físicas e organização no Trello."]
+      ["Responsabilidades da equipe", "Entrevistas com o professor, medições físicas e organização no Trello."]
     ],
-    source: "Baseado nas respostas registadas na entrevista com o professor.",
+    source: "Baseado nas respostas registradas na entrevista com o professor.",
     sections: [
       { title: "Resumo das respostas", blocks: [
         { ul: [
-          "Hoje o projeto existe em papel, numa prancheta, e também é mostrado no projetor.",
+          "Hoje o projeto existe em papel, em uma prancheta, e também é mostrado no projetor.",
           "O maior problema é que os alunos ao redor não conseguem ver a explicação e, se há uma dúvida, todos têm que parar o que estão fazendo para ir até o projetor.",
           "O monitor ficaria em cima da máquina, onde hoje fica a prancheta.",
           "Só o professor mexe no monitor, e é ele quem coloca o projeto da aula no sistema, no começo da aula.",
@@ -631,7 +617,7 @@ const DOCS = {
     subtitle: "Implementação e configuração dos dispositivos Raspberry Pi 3B+.",
     meta: [
       ["Estado", "SENAI · Em desenvolvimento"],
-      ["Responsabilidades da equipa", "Impressão 3D da caixa do Raspberry Pi, instalação do sistema operativo e montagem do suporte VESA no monitor."]
+      ["Responsabilidades da equipe", "Impressão 3D da caixa do Raspberry Pi, instalação do sistema operacional e montagem do suporte VESA no monitor."]
     ],
     source: "Baseado na Documentação Técnica do Projeto Conectorno (SENAI, em desenvolvimento).",
     sections: [
@@ -724,26 +710,26 @@ const DOCS = {
   lakave: {
     kicker: "Organização da documentação",
     title: "Documentação do projeto",
-    subtitle: "Como a documentação das equipas foi produzida, organizada e publicada, e como funciona o site de apoio ao projeto.",
+    subtitle: "Como a documentação das equipes foi produzida, organizada e publicada, e como funciona o site de apoio ao projeto.",
     meta: [
       ["Responsabilidade", "Documentação do projeto e publicação no GitHub."],
-      ["Entregas", "Documentação de cada equipa, site para conhecer o projeto e repositório no GitHub."]
+      ["Entregas", "Documentação de cada equipe, site para conhecer o projeto e repositório no GitHub."]
     ],
-    source: "Elaborado pela equipa Lakave a partir da documentação de cada equipa e do próprio site do projeto.",
+    source: "Elaborado pela equipe Lakave a partir da documentação de cada equipe e do próprio site do projeto.",
     sections: [
-      { title: "1. Papel da equipa", blocks: [
-        { p: "A Lakave é a equipa responsável pela documentação do projeto de visualização remota da usinagem. Ela escreveu as documentações, organizou o material de cada equipa num só lugar, criou o site para conhecer melhor o projeto e publicou tudo num repositório no GitHub." },
+      { title: "1. Papel da equipe", blocks: [
+        { p: "A Lakave é a equipe responsável pela documentação do projeto de visualização remota da usinagem. Ela escreveu as documentações, organizou o material de cada equipe em um só lugar, criou o site para conhecer melhor o projeto e publicou tudo em um repositório no GitHub." },
         { h3: "Responsabilidades" },
         { ul: [
           "Produzir as documentações do projeto.",
-          "Organizar a documentação de cada equipa.",
+          "Organizar a documentação de cada equipe.",
           "Criar o site para saber mais sobre o projeto.",
-          "Enviar a documentação para o GitHub, num repositório próprio."
+          "Enviar a documentação para o GitHub, em um repositório próprio."
         ] }
       ] },
-      { title: "2. Documentação organizada por equipa", blocks: [
-        { p: "Cada equipa tem o seu documento, reunido na aba **Documentações de equipa** do site." },
-        { table: { head: ["Equipa", "Documento", "Conteúdo"], rows: [
+      { title: "2. Documentação organizada por equipe", blocks: [
+        { p: "Cada equipe tem o seu documento, reunido na aba **Documentações de equipe** do site." },
+        { table: { head: ["Equipe", "Documento", "Conteúdo"], rows: [
           ["ComunicCNC", "ConecTorno: documentação do sistema", "Funcionamento do site, rotas da API, requisitos de compatibilidade, instalação segura no Raspberry Pi e diagnóstico de problemas."],
           ["Axión", "Projeto Conectorno: documentação técnica", "Preparação física e montagem do Raspberry Pi 3B+, testes com Bluetooth, rede Wi-Fi isolada, instalação do sistema e arquitetura do ConecTorno."],
           ["ThirteenTech", "Entrevista com o professor", "Perguntas e respostas sobre como o projeto é consultado hoje, onde o monitor ficaria e a rotina do operador."],
@@ -752,37 +738,37 @@ const DOCS = {
         ] } }
       ] },
       { title: "3. O site do projeto", blocks: [
-        { p: "O site reúne, num só lugar, uma base de conhecimento sobre o torno CNC, o desenvolvimento web (frontend e backend) e o projeto SENAI, além da documentação de cada equipa." },
+        { p: "O site reúne, em um só lugar, uma base de conhecimento sobre o torno CNC, o desenvolvimento web (frontend e backend) e o projeto SENAI, além da documentação de cada equipe." },
         { h3: "Funcionalidades" },
         { ul: [
           "**Pesquisa em tempo real:** filtra os tópicos enquanto se digita, procurando no título, no resumo, nos detalhes e nas tags.",
           "**Filtros de categoria:** Todas, Torno CNC, Frontend & Backend e Projeto SENAI.",
           "**Cards expansíveis:** cada card mostra um resumo e abre com suavidade para mostrar a explicação completa.",
-          "**Hashtags clicáveis:** clicar numa tag insere o termo na barra de pesquisa.",
-          "**Documentações de equipa:** aba com o documento de cada equipa, com índice por seções."
+          "**Hashtags clicáveis:** clicar em uma tag insere o termo na barra de pesquisa.",
+          "**Documentações de equipe:** aba com o documento de cada equipe, com índice por seções."
         ] },
         { h3: "Tecnologias" },
         { p: "O site é estático: usa HTML, CSS (com Tailwind CSS) e JavaScript, com ícones do FontAwesome. Não depende de servidor nem de banco de dados." },
         { h3: "Arquivos do site" },
         { code: [
           "index.html   # estrutura da página e das abas",
-          "style.css    # extras de estilo (grelha de fundo, foco e rolagem)",
+          "style.css    # extras de estilo (grade de fundo, foco e rolagem)",
           "script.js    # base de conhecimento, documentações e interatividade"
         ] },
         { h3: "Como abrir" },
-        { p: "Abra o `index.html` no navegador. É preciso ligação à internet, porque o Tailwind CSS, o FontAwesome e as fontes são carregados por CDN. Os três arquivos têm de ficar na mesma pasta." },
+        { p: "Abra o `index.html` no navegador. É preciso conexão com a internet, porque o Tailwind CSS, o FontAwesome e as fontes são carregados por CDN. Os três arquivos têm que ficar na mesma pasta." },
         { note: ["Não confundir:", "este site de apoio é independente do sistema ConecTorno, que roda no Raspberry Pi e precisa de servidor."] }
       ] },
       { title: "4. Como acrescentar ou atualizar uma documentação", blocks: [
         { ol: [
           "Abrir o `script.js` e localizar o objeto `DOCS`.",
-          "Criar ou editar a entrada da equipa, usando o id dela: `lakave`, `comunic`, `thirteentech`, `axion` ou `neonix`.",
+          "Criar ou editar a entrada da equipe, usando o id dela: `lakave`, `comunic`, `thirteentech`, `axion` ou `neonix`.",
           "Montar o conteúdo com blocos: `p` (parágrafo), `h3` (subtítulo), `ul` e `ol` (listas), `table` (tabela), `note` (aviso), `code` (código) e `qa` (perguntas e respostas).",
           "Salvar o arquivo e atualizar a página com `Ctrl + F5` para conferir o resultado."
         ] }
       ] },
       { title: "5. Publicação no GitHub", blocks: [
-        { p: "A documentação foi enviada para um repositório no GitHub, que guarda o material de todas as equipas num só lugar e mantém o histórico das alterações." },
+        { p: "A documentação foi enviada para um repositório no GitHub, que armazena o material de todas as equipes em um só lugar e mantém o histórico das alterações." },
         { h3: "Como atualizar o repositório" },
         { ol: [
           "Salvar as alterações nos arquivos.",
@@ -794,10 +780,10 @@ const DOCS = {
   }
 };
 
-// Equipas = os cards "Equipa ..." da base de conhecimento (id = parte final do id do card).
+// Equipes = os cards "Equipe ..." da base de conhecimento (id = parte final do id do card).
 const TEAMS = DATA
-  .filter((i) => i.cat === "senai" && i.tags.includes("equipas"))
-  .map((i) => ({ id: i.id.replace("senai-", ""), name: i.title.replace("Equipa ", ""), role: i.summary }));
+  .filter((i) => i.cat === "senai" && i.tags.includes("equipes"))
+  .map((i) => ({ id: i.id.replace("senai-", ""), name: i.title.replace("Equipe ", ""), role: i.summary }));
 
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const fmt = (s) => esc(s)
@@ -859,7 +845,7 @@ function teamsHTML() {
   }).join("");
 
   return `
-    <p class="mb-5 max-w-2xl text-slate-400">Cada equipa reúne aqui a documentação técnica do seu trabalho. Escolha uma equipa para abrir o documento.</p>
+    <p class="mb-5 max-w-2xl text-slate-400">Cada equipe reúne aqui a documentação técnica do seu trabalho. Escolha uma equipe para abrir o documento.</p>
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">${cards}</div>`;
 }
 
@@ -882,10 +868,10 @@ function docHTML(id) {
 
   return `
     <button type="button" data-back class="mb-6 inline-flex items-center gap-2 text-sm text-slate-400 transition hover:text-white">
-      <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Voltar às equipas
+      <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Voltar às equipes
     </button>
     <header class="mb-8 rounded-xl border border-slate-700/60 bg-[#101a2e] p-6">
-      <p class="text-sm font-medium text-cyan-400">Equipa ${team.name} · ${d.kicker}</p>
+      <p class="text-sm font-medium text-cyan-400">Equipe ${team.name} · ${d.kicker}</p>
       <h2 class="${HEAD_FONT} mt-1 text-3xl font-bold text-white sm:text-4xl">${d.title}</h2>
       <p class="mt-2 max-w-2xl text-lg text-slate-300">${d.subtitle}</p>
       ${meta}

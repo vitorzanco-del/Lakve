@@ -1,7 +1,7 @@
 /* Extras opcionais.
    O visual principal vem das classes do Tailwind no HTML e no JS,
-   por isso o site continua legível mesmo se este ficheiro não carregar.
-   Aqui ficam só a grelha de fundo, o foco visível e a barra de rolagem. */
+   por isso o site continua legível mesmo se este arquivo não carregar.
+   Aqui ficam só a grade de fundo, o foco visível e a barra de rolagem. */
 
 html {
   scroll-behavior: smooth;
@@ -9,7 +9,7 @@ html {
   color-scheme: dark;
 }
 
-/* grelha discreta, como papel de desenho técnico */
+/* grade discreta, como papel de desenho técnico */
 body {
   background-image:
     linear-gradient(rgba(34, 211, 238, 0.035) 1px, transparent 1px),
