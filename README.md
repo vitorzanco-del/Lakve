@@ -54,10 +54,10 @@ Teclado e mouse USB	Configuração inicial
 Tivemos a ideia de colocar um vidro de acrílico cobrindo a câmera para protegê-la da temperatura.
 
 # imagens das maquinas
-![imagensMaquina](<m.jpeg>)
-![imagemmaquina](<ma.jpeg>)
-![imagemligada](<Maquina ligada (2).jpg>)
-![imagemligada](<Romi.jpeg>)
+![imagem_Maquina](<Imagens/m.jpeg>)
+![maquina_ligada](<Imagens/ma.jpeg>)
+![Maquina](<Imagens/Maquina ligada (2).jpg>)
+![romi_maquina](<Imagens/Romi.jpeg>)
 
 # Andamento das equipes
 
