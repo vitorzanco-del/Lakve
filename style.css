@@ -1,256 +1,34 @@
-/* Tema técnico/industrial: navy escuro com destaques em ciano.
-   O Tailwind (CDN) trata do layout; aqui ficam os componentes. */
+/* Extras opcionais.
+   O visual principal vem das classes do Tailwind no HTML e no JS,
+   por isso o site continua legível mesmo se este ficheiro não carregar.
+   Aqui ficam só a grelha de fundo, o foco visível e a barra de rolagem. */
 
-:root {
-  --bg: #0a1120;
-  --surface: #101a2e;
-  --surface-2: #16233d;
-  --line: #1f2e4a;
-  --text: #e5ecf6;
-  --muted: #93a3bd;
-  --accent: #22d3ee;
+html {
+  scroll-behavior: smooth;
+  background-color: #0a1120;
+  color-scheme: dark;
 }
 
-html { scroll-behavior: smooth; }
-
+/* grelha discreta, como papel de desenho técnico */
 body {
-  margin: 0;
-  min-height: 100vh;
-  background-color: var(--bg);
-  /* grelha discreta, como papel de desenho técnico */
   background-image:
     linear-gradient(rgba(34, 211, 238, 0.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(34, 211, 238, 0.035) 1px, transparent 1px);
   background-size: 40px 40px;
-  color: var(--text);
-  font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  line-height: 1.6;
-}
-
-.font-head {
-  font-family: "Barlow Semi Condensed", "Arial Narrow", system-ui, sans-serif;
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid #22d3ee;
   outline-offset: 2px;
 }
 
-/* ---------- Topo e rodapé ---------- */
-.topbar {
-  border-bottom: 1px solid var(--line);
-  background: rgba(10, 17, 32, 0.88);
-  backdrop-filter: blur(6px);
-}
+#search:focus-visible { outline: none; }
 
-.footer { border-top: 1px solid var(--line); }
-
-.logo {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  background: var(--surface-2);
-  border: 1px solid var(--line);
-  color: var(--accent);
-}
-
-/* ---------- Campo de pesquisa ---------- */
-.console {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  height: 58px;
-  padding: 0 0.75rem 0 1.1rem;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.console:focus-within {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.18);
-}
-
-.console .prompt {
-  color: var(--accent);
-  font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
-  font-size: 1.15rem;
-  font-weight: 700;
-}
-
-.console input {
-  flex: 1;
-  min-width: 0;
-  background: transparent;
-  border: 0;
-  outline: 0;
-  color: var(--text);
-  font: 500 1rem "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
-}
-
-.console input::placeholder { color: #5f7090; }
-
-.console:focus-within :focus-visible { outline: none; }
-
-.icon-btn {
-  width: 36px;
-  height: 36px;
-  border: 0;
-  border-radius: 8px;
-  background: transparent;
-  color: var(--muted);
-  cursor: pointer;
-}
-
-.icon-btn:hover { background: var(--surface-2); color: var(--text); }
-
-.status {
-  font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
-  font-size: 0.85rem;
-  color: var(--muted);
-}
-
-/* ---------- Filtros ---------- */
-.chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.9rem;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--surface);
-  color: var(--muted);
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: color 0.15s, border-color 0.15s, background 0.15s;
-}
-
-.chip:hover { color: var(--text); border-color: #36507c; }
-
-.chip[aria-pressed="true"] {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #04202a;
-}
-
-.chip-n {
-  padding: 0 0.45rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  font-size: 0.75rem;
-}
-
-.chip[aria-pressed="true"] .chip-n { background: rgba(4, 32, 42, 0.18); }
-
-/* ---------- Cards ---------- */
-.card {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--c);
-  border-radius: 10px;
-  transition: border-color 0.25s;
-}
-
-.card.open { border-color: color-mix(in srgb, var(--c) 45%, var(--line)); }
-
-.card-head {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  width: 100%;
-  padding: 1.1rem 1.1rem 0.9rem;
-  border: 0;
-  border-radius: 10px 10px 0 0;
-  background: none;
-  color: inherit;
-  text-align: left;
-  cursor: pointer;
-}
-
-.card-icon {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--c) 14%, transparent);
-  color: var(--c);
-}
-
-.card-cat { display: block; font-size: 0.8rem; font-weight: 500; color: var(--c); }
-
-.card-title {
-  display: block;
-  margin-top: 0.15rem;
-  font-family: "Barlow Semi Condensed", "Arial Narrow", system-ui, sans-serif;
-  font-size: 1.35rem;
-  font-weight: 600;
-  line-height: 1.25;
-}
-
-.card-summary { display: block; margin-top: 0.35rem; font-size: 0.95rem; color: var(--muted); }
-
-.chev { flex: none; margin-top: 0.55rem; color: var(--muted); transition: transform 0.3s, color 0.3s; }
-.card.open .chev { transform: rotate(180deg); color: var(--c); }
-
-/* Accordion suave: anima a altura de 0fr para 1fr */
-.card-body {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.35s ease;
-}
-
-.card.open .card-body { grid-template-rows: 1fr; }
-
-.card-inner { min-height: 0; overflow: hidden; }
-
-.detail {
-  margin: 0 1.1rem;
-  padding: 1rem 0 0.4rem;
-  border-top: 1px solid var(--line);
-}
-
-.detail p { margin: 0 0 0.8rem; max-width: 68ch; color: #cbd5e5; }
-.detail ul { margin: 0 0 0.8rem; padding-left: 1.2rem; list-style: disc; }
-.detail li { margin: 0.3rem 0; max-width: 68ch; color: #cbd5e5; }
-.detail li::marker { color: var(--c); }
-.detail strong { color: var(--text); font-weight: 600; }
-
-/* ---------- Hashtags ---------- */
-.tags { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0 1.1rem 1.1rem; }
-
-.tag {
-  padding: 0.2rem 0.55rem;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: transparent;
-  color: #7dd3e8;
-  font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
-  font-size: 0.78rem;
-  cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
-}
-
-.tag:hover { background: rgba(34, 211, 238, 0.12); border-color: var(--accent); }
-
-/* ---------- Estado vazio ---------- */
-.empty {
-  margin-top: 1rem;
-  padding: 3rem 1.5rem;
-  border: 1px dashed #2a3d60;
-  border-radius: 10px;
-  text-align: center;
-  color: var(--text);
-}
-
-.empty[hidden] { display: none; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: #1f2e4a; border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: #2c4168; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .card, .card-body, .chev, .chip, .tag, .console { transition: none; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; }
 }

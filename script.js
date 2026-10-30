@@ -1,12 +1,12 @@
 "use strict";
 
 /* ============================================================
-   CATEGORIAS
+   CATEGORIAS (classes completas do Tailwind para cada cor)
    ============================================================ */
 const CATEGORIES = {
-  cnc:   { label: "Torno CNC",          icon: "fa-gear",  color: "#22d3ee" },
-  web:   { label: "Frontend & Backend", icon: "fa-code",  color: "#60a5fa" },
-  senai: { label: "Projeto SENAI",      icon: "fa-video", color: "#fbbf24" }
+  cnc:   { label: "Torno CNC",          icon: "fa-gear",  text: "text-cyan-400",  bar: "border-l-cyan-400",  soft: "bg-cyan-400/10" },
+  web:   { label: "Frontend & Backend", icon: "fa-code",  text: "text-blue-400",  bar: "border-l-blue-400",  soft: "bg-blue-400/10" },
+  senai: { label: "Projeto SENAI",      icon: "fa-video", text: "text-amber-400", bar: "border-l-amber-400", soft: "bg-amber-400/10" }
 };
 
 /* ============================================================
@@ -160,7 +160,7 @@ const DATA = [
   {
     id: "senai-cominic",
     cat: "senai",
-    title: "Equipa Cominic CNC",
+    title: "Equipa CominicCNC",
     summary: "Servidor, integração frontend x backend e ligação Bluetooth/rede.",
     details: `
       <p>Responsável pela parte de software que liga tudo:</p>
@@ -168,8 +168,9 @@ const DATA = [
         <li>Servidor</li>
         <li>Integração entre frontend e backend</li>
         <li>Ligação por Bluetooth e por rede</li>
+        <li>Documentação do sistema ConecTorno (veja a aba Documentações de equipa)</li>
       </ul>`,
-    tags: ["equipas", "cominic cnc", "servidor", "bluetooth", "rede", "backend", "frontend x backend"]
+    tags: ["equipas", "cominiccnc", "conectorno", "documentacao", "servidor", "bluetooth", "rede", "backend", "frontend x backend"]
   },
   {
     id: "senai-thirteentech",
@@ -248,8 +249,14 @@ const els = {
   filters: document.querySelector("#filters")
 };
 
+// Estilo do texto expandido (listas, parágrafos, negrito)
+const DETAIL_CLASSES =
+  "mx-4 border-t border-slate-700/60 pb-1 pt-4 text-slate-300 " +
+  "[&_p]:mb-3 [&_p]:max-w-[68ch] [&_ul]:mb-3 [&_ul]:list-disc [&_ul]:pl-5 " +
+  "[&_li]:my-1 [&_li]:max-w-[68ch] [&_strong]:font-semibold [&_strong]:text-white";
+
 /* ============================================================
-   UTILITÁRIOS DE PESQUISA
+   PESQUISA
    ============================================================ */
 // Minúsculas e sem acentos: "acrílico" e "acrilico" são equivalentes.
 const norm = (s) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -274,27 +281,27 @@ function buildMatchers(query) {
    RENDERIZAÇÃO
    ============================================================ */
 function cardHTML(item) {
-  const cat = CATEGORIES[item.cat];
+  const c = CATEGORIES[item.cat];
   const open = state.open.has(item.id);
   const tags = item.tags
-    .map((t) => `<button type="button" class="tag" data-tag="${t}">#${t}</button>`)
+    .map((t) => `<button type="button" data-tag="${t}" class="tag rounded-md border border-slate-700/60 px-2 py-0.5 font-mono text-xs text-cyan-300 transition hover:border-cyan-400 hover:bg-cyan-400/10">#${t}</button>`)
     .join("");
 
   return `
-    <article class="card${open ? " open" : ""}" data-id="${item.id}" style="--c:${cat.color}">
-      <button type="button" class="card-head" aria-expanded="${open}" aria-controls="body-${item.id}">
-        <span class="card-icon" aria-hidden="true"><i class="fa-solid ${cat.icon}"></i></span>
+    <article class="card rounded-xl border border-l-4 border-slate-700/60 ${c.bar} bg-[#101a2e]" data-id="${item.id}">
+      <button type="button" class="card-head flex w-full items-start gap-4 p-4 text-left" aria-expanded="${open}" aria-controls="body-${item.id}">
+        <span class="grid h-10 w-10 flex-none place-items-center rounded-lg ${c.soft} ${c.text}" aria-hidden="true"><i class="fa-solid ${c.icon}"></i></span>
         <span class="min-w-0 flex-1">
-          <span class="card-cat">${cat.label}</span>
-          <span class="card-title">${item.title}</span>
-          <span class="card-summary">${item.summary}</span>
+          <span class="block text-sm font-medium ${c.text}">${c.label}</span>
+          <span class="mt-0.5 block font-['Barlow_Semi_Condensed',sans-serif] text-xl font-semibold leading-snug text-white">${item.title}</span>
+          <span class="mt-1.5 block text-[0.95rem] text-slate-400">${item.summary}</span>
         </span>
-        <i class="fa-solid fa-chevron-down chev" aria-hidden="true"></i>
+        <i class="chev fa-solid fa-chevron-down mt-2 flex-none text-slate-400 transition-transform duration-300 ${open ? "rotate-180" : ""}" aria-hidden="true"></i>
       </button>
-      <div class="card-body" id="body-${item.id}">
-        <div class="card-inner"><div class="detail">${item.details}</div></div>
+      <div id="body-${item.id}" class="card-body grid transition-[grid-template-rows] duration-300 ease-out ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}">
+        <div class="min-h-0 overflow-hidden"><div class="${DETAIL_CLASSES}">${item.details}</div></div>
       </div>
-      <div class="tags">${tags}</div>
+      <div class="tags flex flex-wrap gap-1.5 p-4 pt-3">${tags}</div>
     </article>`;
 }
 
@@ -312,7 +319,7 @@ function render() {
 }
 
 function updateFilterButtons() {
-  els.filters.querySelectorAll(".chip").forEach((btn) => {
+  els.filters.querySelectorAll("[data-cat]").forEach((btn) => {
     btn.setAttribute("aria-pressed", String(btn.dataset.cat === state.cat));
   });
 }
@@ -328,10 +335,15 @@ function fillCounts() {
    AÇÕES
    ============================================================ */
 function toggleCard(card) {
-  const isOpen = card.classList.toggle("open");
-  card.querySelector(".card-head").setAttribute("aria-expanded", String(isOpen));
-  if (isOpen) state.open.add(card.dataset.id);
-  else state.open.delete(card.dataset.id);
+  const id = card.dataset.id;
+  const open = !state.open.has(id);
+  if (open) state.open.add(id); else state.open.delete(id);
+
+  card.querySelector(".card-head").setAttribute("aria-expanded", String(open));
+  const body = card.querySelector(".card-body");
+  body.classList.toggle("grid-rows-[1fr]", open);
+  body.classList.toggle("grid-rows-[0fr]", !open);
+  card.querySelector(".chev").classList.toggle("rotate-180", open);
 }
 
 function setQuery(value) {
@@ -374,7 +386,7 @@ els.clear.addEventListener("click", () => {
 els.reset.addEventListener("click", resetAll);
 
 els.filters.addEventListener("click", (e) => {
-  const btn = e.target.closest(".chip");
+  const btn = e.target.closest("[data-cat]");
   if (!btn) return;
   state.cat = btn.dataset.cat;
   updateFilterButtons();
@@ -388,7 +400,7 @@ els.grid.addEventListener("click", (e) => {
     applyTag(tag.dataset.tag);
     return;
   }
-  if (e.target.closest(".card-inner") || e.target.closest(".tags")) return;
+  if (e.target.closest(".card-body") || e.target.closest(".tags")) return;
   const card = e.target.closest(".card");
   if (card) toggleCard(card);
 });
@@ -398,3 +410,256 @@ els.grid.addEventListener("click", (e) => {
    ============================================================ */
 fillCounts();
 render();
+
+/* ============================================================
+   DOCUMENTAÇÕES DE EQUIPA
+   Para acrescentar o documento de outra equipa, crie uma entrada
+   em DOCS com o id da equipa: lakave, cominic, thirteentech,
+   axion ou neonix.
+   Blocos: p, h3, ul, ol, table, note, code. Use `código` e **negrito**.
+   ============================================================ */
+const DOCS = {
+  cominic: {
+    kicker: "Documentação do sistema",
+    title: "ConecTorno",
+    subtitle: "Site de comunicação e acompanhamento de monitores para uso com o servidor existente no Raspberry Pi.",
+    objective: "Explicar o funcionamento do site, seus recursos, a comunicação com a API e os cuidados de instalação.",
+    version: "Pacote somente do site (frontend), sem servidor próprio, porque o Raspberry já possui um servidor.",
+    source: "Documento técnico, versão frontend. Baseado no pacote ConecTorno_Raspberry_Somente_Site_Sem_Servidor.zip e no arquivo API_COMPATIBILIDADE.md incluído nele.",
+    sections: [
+      { title: "1. Visão geral", blocks: [
+        { p: "O ConecTorno é uma interface web para o professor publicar materiais e acompanhar até seis monitores. O professor acessa um painel protegido por login; cada monitor abre uma tela pública específica, identificada por um número na URL." },
+        { note: ["Importante:", "o pacote documentado contém somente os arquivos do site: HTML, CSS, JavaScript, imagem e biblioteca PDF.js. Ele não inclui o servidor Python/Flask, banco de dados, autenticação do backend nem serviço para iniciar a aplicação. Portanto, o funcionamento depende do servidor que já está instalado no Raspberry Pi."] },
+        { h3: "Objetivos principais" },
+        { ul: [
+          "Publicar um PDF ou uma imagem para exibição nos monitores.",
+          "Acompanhar o estado dos monitores pelo painel do professor.",
+          "Abrir a tela de um monitor específico por um endereço próprio.",
+          "Adicionar observações relacionadas a um monitor e removê-las quando necessário.",
+          "Gerenciar o acesso do professor por cadastro inicial, login, alteração e recuperação de senha."
+        ] }
+      ] },
+      { title: "2. Componentes do sistema", blocks: [
+        { table: { head: ["Componente", "Função"], rows: [
+          ["HTML: `static/index.html`", "Estrutura das telas de login, painel do professor e visualização dos monitores."],
+          ["CSS: `static/style.css`", "Aparência, organização dos elementos e adaptação visual."],
+          ["JavaScript: `static/app.js`", "Controla as ações da interface e envia requisições HTTP para a API do servidor."],
+          ["PDF.js: `static/pdfjs/`", "Biblioteca usada para apresentar documentos PDF no navegador."],
+          ["Servidor já instalado no Raspberry Pi", "Entrega os arquivos do site, executa a API, valida sessões e processa operações e arquivos enviados."]
+        ] } }
+      ] },
+      { title: "3. Como o sistema funciona", blocks: [
+        { h3: "3.1 Primeiro acesso do professor" },
+        { p: "Ao abrir o endereço do Raspberry, o site consulta `/api/auth/status` para saber se existe uma configuração de acesso e se há uma sessão válida. No primeiro uso, o professor pode criar usuário e senha; depois disso, normalmente entra com suas credenciais." },
+        { h3: "3.2 Painel do professor" },
+        { p: "Depois do login, a interface consulta `/api/state` e apresenta o estado disponível no servidor. Pelo painel, o professor pode enviar um PDF ou uma imagem, publicar ou remover um projeto geral, selecionar monitores, limpar a publicação de um monitor e registrar ou apagar observações." },
+        { h3: "3.3 Tela de cada monitor" },
+        { p: "Cada monitor usa o mesmo site, mas com um identificador na URL. O JavaScript lê esse número e consulta `/api/monitor/<n>/display` para buscar o conteúdo que deve aparecer. Também envia periodicamente uma chamada de presença (heartbeat) para `/api/monitor/<n>/heartbeat`, permitindo ao servidor acompanhar a atividade do monitor." },
+        { p: "Exemplos de endereço:" },
+        { code: ["http://ENDERECO-DO-RASPBERRY:PORTA/?monitor=1", "http://ENDERECO-DO-RASPBERRY:PORTA/?monitor=2", "… até monitor=6"] },
+        { p: "Substitua ENDERECO-DO-RASPBERRY e PORTA pelos valores reais usados atualmente na rede. Não abra o arquivo `index.html` diretamente e não use o Live Server do VS Code para a operação real: o site precisa ser servido pela mesma origem que disponibiliza a API." },
+        { h3: "3.4 Envio de arquivos" },
+        { p: "O professor escolhe um PDF ou uma imagem no formulário de publicação. O navegador envia o arquivo para `/api/upload`. O servidor precisa armazená-lo e disponibilizar o arquivo por um caminho acessível, normalmente sob `/uploads/...`. A tela de monitor usa os dados retornados pela API para apresentar o material." },
+        { h3: "3.5 Senhas e sessão" },
+        { p: "A interface possui formulários para criar o acesso inicial, entrar, sair, alterar a senha e solicitar recuperação com código mestre que está com a equipe que o criou. A segurança real depende do backend: validação das credenciais, armazenamento seguro das senhas, proteção da sessão e validação CSRF nas operações administrativas." }
+      ] },
+      { title: "4. Rotas da API necessárias", blocks: [
+        { p: "O JavaScript usa caminhos relativos que começam com `/api/`. O servidor existente precisa implementar rotas equivalentes, aceitar os métodos corretos e devolver JSON no formato esperado pelo frontend." },
+        { table: { head: ["Método e rota", "Finalidade"], rows: [
+          ["`GET /api/auth/status`", "Verificar configuração de acesso e estado da sessão."],
+          ["`POST /api/setup`", "Criar o usuário do primeiro acesso."],
+          ["`POST /api/login` e `/api/logout`", "Iniciar e encerrar a sessão do professor."],
+          ["`POST /api/change-password`", "Alterar a senha do professor autenticado."],
+          ["`POST /api/password/recover`", "Recuperar o acesso com o código mestre."],
+          ["`GET /api/state`", "Carregar o estado do painel, projetos e observações."],
+          ["`POST /api/upload`", "Receber PDF ou imagem para publicação."],
+          ["`POST /api/project/delete`", "Remover a publicação geral."],
+          ["`POST /api/monitor/<1-6>/project/reset`", "Limpar a publicação específica de um monitor."],
+          ["`POST /api/monitor/<1-6>/note`", "Criar uma observação para um monitor."],
+          ["`DELETE /api/monitor/<1-6>/note/<id>`", "Apagar uma observação identificada pelo ID."],
+          ["`POST /api/monitor/<1-6>/heartbeat`", "Informar a presença/atividade do monitor."],
+          ["`GET /api/monitor/<1-6>/display`", "Consultar o conteúdo destinado ao monitor."]
+        ] } }
+      ] },
+      { title: "5. Requisitos de compatibilidade", blocks: [
+        { ul: [
+          "A pasta `static` deve ser servida pelo mesmo servidor e endereço que respondem às rotas `/api/...`.",
+          "As rotas de monitor `/heartbeat` e `/display` devem aceitar chamadas sem token, pois esta interface não envia token de monitor.",
+          "As operações do professor devem continuar protegidas pela sessão e pelo mecanismo CSRF exigido pelo backend.",
+          "As respostas devem ser JSON e incluir os campos esperados pela interface, como `ok`, erro/mensagem e os dados do estado, projeto e observações.",
+          "Os arquivos enviados e seus links devem continuar disponíveis no Raspberry, normalmente por `/uploads/...`.",
+          "Os seis identificadores válidos de monitor são de 1 a 6."
+        ] },
+        { note: ["Atenção:", "esta documentação descreve o contrato esperado pelo site. Ela não confirma que o `app.py` atualmente instalado no Raspberry já implementa todas as rotas. A compatibilidade deve ser verificada antes da substituição dos arquivos."] }
+      ] },
+      { title: "6. Instalação segura no Raspberry Pi", blocks: [
+        { ol: [
+          ["Identificar a pasta do projeto.", "Localize a pasta usada pelo serviço atual do ConecTorno e confirme qual diretório `static` ele publica."],
+          ["Fazer backup.", "Copie a pasta `static` atual e mantenha uma cópia dos arquivos de configuração, dados e uploads."],
+          ["Conferir a API.", "Compare as rotas do servidor existente com a lista desta documentação. Não presuma compatibilidade apenas porque a página abre."],
+          ["Substituir somente o site.", "Se a API for compatível, copie a pasta `static` deste pacote para o local esperado pelo servidor."],
+          ["Preservar o backend.", "Não apague nem substitua `app.py`, configurações, dados, autenticação, chave secreta ou uploads."],
+          ["Reiniciar o serviço existente.", "Use o procedimento normal de reinicialização do projeto no Raspberry; não inicie um segundo servidor para o mesmo site."],
+          ["Testar professor e monitores.", "Abra o endereço habitual, faça login e teste publicação, exibição, observações e os monitores que serão usados."]
+        ] }
+      ] },
+      { title: "7. Diagnóstico de problemas", blocks: [
+        { table: { head: ["Sintoma", "Possível causa / verificação"], rows: [
+          ["`404` em uma rota `/api/...`", "A API do servidor não possui a rota esperada ou o caminho está diferente."],
+          ["`401` ou `403` na tela do monitor", "O backend exige autenticação/token para monitor, ou bloqueia as rotas públicas de heartbeat/display."],
+          ["`Failed to fetch`", "Endereço ou porta incorretos, servidor indisponível, falha de rede ou bloqueio do navegador."],
+          ["Login funciona, mas publicar/apagar falha", "Verifique sessão, proteção CSRF, permissões e formato de resposta da rota."],
+          ["PDF/imagem não aparece", "Confira o resultado do upload, o caminho do arquivo, a rota de exibição e o acesso a `/uploads/`."],
+          ["Site abre, mas os dados não atualizam", "A página estática pode estar acessível enquanto a API está indisponível ou incompatível."]
+        ] } }
+      ] },
+      { title: "8. Segurança e manutenção", blocks: [
+        { ul: [
+          "Não compartilhe senhas nem códigos de recuperação.",
+          "Use senhas fortes e altere credenciais padrão, caso existam.",
+          "Mantenha o Raspberry e o servidor atualizados e restrinja o acesso à rede conforme a necessidade da escola/oficina.",
+          "Faça backup antes de qualquer atualização; teste a restauração dos arquivos importantes.",
+          "Não exponha a interface à internet sem revisar autenticação, autorização, CSRF, uploads e configuração de rede.",
+          "Registre mudanças de versão e guarde a documentação junto do projeto."
+        ] }
+      ] },
+      { title: "9. Resumo", blocks: [
+        { p: "O ConecTorno desta versão é o frontend do sistema. Ele fornece a interface visual e faz requisições para uma API já existente. Para funcionar no Raspberry Pi sem criar outro servidor, o serviço atual precisa servir a pasta `static` e implementar as rotas, permissões e formatos de dados descritos neste documento. Se houver incompatibilidade, a solução é adaptar o frontend ou o backend existente de forma controlada, preservando dados e configurações." }
+      ] }
+    ]
+  }
+};
+
+// Equipas = os cards "Equipa ..." da base de conhecimento (id = parte final do id do card).
+const TEAMS = DATA
+  .filter((i) => i.cat === "senai" && i.tags.includes("equipas"))
+  .map((i) => ({ id: i.id.replace("senai-", ""), name: i.title.replace("Equipa ", ""), role: i.summary }));
+
+const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const fmt = (s) => esc(s)
+  .replace(/`([^`]+)`/g, '<code class="rounded bg-slate-800 px-1.5 py-0.5 font-mono text-[0.85em] text-cyan-300">$1</code>')
+  .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+
+const HEAD_FONT = "font-['Barlow_Semi_Condensed',sans-serif]";
+
+function blockHTML(b) {
+  if (b.p)  return `<p class="mb-3 max-w-[72ch] text-slate-300">${fmt(b.p)}</p>`;
+  if (b.h3) return `<h3 class="mb-2 mt-7 text-lg font-semibold text-white">${fmt(b.h3)}</h3>`;
+  if (b.ul) {
+    const li = b.ul.map((i) => `<li>${fmt(i)}</li>`).join("");
+    return `<ul class="mb-4 list-disc space-y-1.5 pl-5 text-slate-300 marker:text-cyan-400">${li}</ul>`;
+  }
+  if (b.ol) {
+    const li = b.ol.map(([lead, text]) => `<li><strong class="text-white">${fmt(lead)}</strong> ${fmt(text)}</li>`).join("");
+    return `<ol class="mb-4 list-decimal space-y-2.5 pl-5 text-slate-300 marker:text-cyan-400">${li}</ol>`;
+  }
+  if (b.code) {
+    return `<pre class="mb-4 overflow-x-auto rounded-lg border border-slate-700/60 bg-[#0b1426] p-4 font-mono text-sm text-cyan-200">${esc(b.code.join("\n"))}</pre>`;
+  }
+  if (b.note) {
+    return `<div class="mb-4 rounded-lg border-l-4 border-amber-400 bg-amber-400/10 p-4 text-slate-200"><strong class="text-amber-300">${fmt(b.note[0])}</strong> ${fmt(b.note[1])}</div>`;
+  }
+  if (b.table) {
+    const th = b.table.head.map((h) => `<th class="px-4 py-2.5 font-semibold text-slate-200">${fmt(h)}</th>`).join("");
+    const rows = b.table.rows
+      .map((r) => `<tr>${r.map((c) => `<td class="border-t border-slate-800 px-4 py-2.5 align-top text-slate-300">${fmt(c)}</td>`).join("")}</tr>`)
+      .join("");
+    return `<div class="mb-4 overflow-x-auto rounded-lg border border-slate-700/60"><table class="w-full min-w-[34rem] text-left text-sm"><thead class="bg-[#16233d]"><tr>${th}</tr></thead><tbody>${rows}</tbody></table></div>`;
+  }
+  return "";
+}
+
+function teamsHTML() {
+  const cards = TEAMS.map((t) => {
+    const has = Boolean(DOCS[t.id]);
+    const badge = has ? "bg-cyan-400/15 text-cyan-300" : "bg-slate-700/40 text-slate-400";
+    const body = `
+      <span class="flex items-start justify-between gap-3">
+        <span class="${HEAD_FONT} text-xl font-semibold text-white">${t.name}</span>
+        <span class="flex-none rounded-full px-2.5 py-0.5 text-xs font-medium ${badge}">${has ? "Documentação disponível" : "Ainda sem documentação"}</span>
+      </span>
+      <span class="mt-2 block text-sm text-slate-400">${t.role}</span>
+      ${has ? '<span class="mt-4 inline-flex items-center gap-2 text-sm font-medium text-cyan-400"><i class="fa-solid fa-file-lines" aria-hidden="true"></i> Abrir documentação</span>' : ""}`;
+    return has
+      ? `<button type="button" data-doc="${t.id}" class="rounded-xl border border-l-4 border-slate-700/60 border-l-cyan-400 bg-[#101a2e] p-4 text-left transition hover:border-cyan-400/70">${body}</button>`
+      : `<div class="rounded-xl border border-l-4 border-slate-800 border-l-slate-600 bg-[#101a2e]/60 p-4">${body}</div>`;
+  }).join("");
+
+  return `
+    <p class="mb-5 max-w-2xl text-slate-400">Cada equipa reúne aqui a documentação técnica do seu trabalho. Escolha uma equipa para abrir o documento.</p>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">${cards}</div>`;
+}
+
+function docHTML(id) {
+  const d = DOCS[id];
+  const team = TEAMS.find((t) => t.id === id);
+  const nav = d.sections
+    .map((s, i) => `<button type="button" data-goto="doc-s${i + 1}" class="block w-full rounded-md px-3 py-1.5 text-left text-sm text-slate-400 transition hover:bg-slate-800 hover:text-white">${esc(s.title)}</button>`)
+    .join("");
+  const sections = d.sections
+    .map((s, i) => `
+      <section id="doc-s${i + 1}" class="mb-10 scroll-mt-24">
+        <h2 class="${HEAD_FONT} mb-4 border-b border-slate-800 pb-2 text-2xl font-semibold text-white">${esc(s.title)}</h2>
+        ${s.blocks.map(blockHTML).join("")}
+      </section>`)
+    .join("");
+
+  return `
+    <button type="button" data-back class="mb-6 inline-flex items-center gap-2 text-sm text-slate-400 transition hover:text-white">
+      <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Voltar às equipas
+    </button>
+    <header class="mb-8 rounded-xl border border-slate-700/60 bg-[#101a2e] p-6">
+      <p class="text-sm font-medium text-cyan-400">Equipa ${team.name} · ${d.kicker}</p>
+      <h2 class="${HEAD_FONT} mt-1 text-3xl font-bold text-white sm:text-4xl">${d.title}</h2>
+      <p class="mt-2 max-w-2xl text-lg text-slate-300">${d.subtitle}</p>
+      <dl class="mt-5 grid gap-4 text-sm sm:grid-cols-2">
+        <div><dt class="font-medium text-slate-200">Objetivo</dt><dd class="mt-0.5 text-slate-400">${d.objective}</dd></div>
+        <div><dt class="font-medium text-slate-200">Versão documentada</dt><dd class="mt-0.5 text-slate-400">${d.version}</dd></div>
+      </dl>
+    </header>
+    <div class="lg:grid lg:grid-cols-[15rem_1fr] lg:gap-10">
+      <nav class="mb-8 lg:sticky lg:top-24 lg:mb-0 lg:self-start" aria-label="Índice da documentação">
+        <p class="mb-2 px-3 text-sm font-semibold text-slate-500">Neste documento</p>
+        <div class="grid grid-cols-1 gap-0.5 sm:grid-cols-2 lg:block">${nav}</div>
+      </nav>
+      <article class="min-w-0">
+        ${sections}
+        <p class="text-sm text-slate-500">${d.source}</p>
+      </article>
+    </div>`;
+}
+
+const docsRoot = document.querySelector("#docs-root");
+const docsState = { doc: null };
+
+function renderDocs() {
+  docsRoot.innerHTML = docsState.doc ? docHTML(docsState.doc) : teamsHTML();
+}
+
+function showView(view) {
+  document.querySelectorAll("[data-tab]").forEach((t) => {
+    t.setAttribute("aria-selected", String(t.dataset.tab === view));
+  });
+  document.querySelector("#view-kb").hidden = view !== "kb";
+  document.querySelector("#view-docs").hidden = view !== "docs";
+}
+
+document.querySelectorAll("[data-tab]").forEach((t) => {
+  t.addEventListener("click", () => showView(t.dataset.tab));
+});
+
+docsRoot.addEventListener("click", (e) => {
+  const open = e.target.closest("[data-doc]");
+  const back = e.target.closest("[data-back]");
+  const go = e.target.closest("[data-goto]");
+  if (open || back) {
+    docsState.doc = open ? open.dataset.doc : null;
+    renderDocs();
+    document.querySelector("#tabs").scrollIntoView({ behavior: "smooth" });
+  } else if (go) {
+    const target = document.getElementById(go.dataset.goto);
+    if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+});
+
+renderDocs();

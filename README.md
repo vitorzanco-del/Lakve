@@ -10,7 +10,7 @@ Dividimos as equipes em quatro, cada uma responsável por uma parte do projeto.
 --- Lakave:
  Esta equipe está responsável pela documentação do projeto.
 
---- Cominic CNC:
+--- Comunic CNC:
  Responsável por Servidor, Frontend x Backend.
 
 --- Thirteentech:
@@ -65,7 +65,7 @@ Tivemos a ideia de colocar um vidro de acrílico cobrindo a câmera para proteg�
 
 **Grupo: Axión:** montou o setup no Raspberry e está avaliando como o projeto vai ficar.
 
-**Grupo:Cominic CNC:** o sistema por IP está pronto, mas há problema na rede do SENAI; vão usar um adaptador Bluetooth.
+**Grupo:Comunic CNC:** o sistema por IP está pronto, mas há problema na rede do SENAI; vão usar um adaptador Bluetooth.
 
 **Grupo: ThirteenTech:** criou um link no Trello para a documentação das equipes. Entrevistou o professor na aula passada e fez a documentação por escrito.
 
