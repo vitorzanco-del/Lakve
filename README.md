@@ -48,7 +48,8 @@ Teclado e mouse USB	Configuração inicial
 
 ## Imagem do projeto
 
-![Monitor com raspberry](<Imagens/Monitor com raspberry.jpg>)
+![Monitor com raspberry](<Imagens/completo.jpg)
+![Monitor com raspberry de lado](<Imagens/suporte com o monitor de lado.jpg>)
 
  # Câmera
 Tivemos a ideia de colocar um vidro de acrílico cobrindo a câmera para protegê-la da temperatura.
