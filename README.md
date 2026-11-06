@@ -48,7 +48,7 @@ Teclado e mouse USB	Configuração inicial
 
 ## Imagem do projeto
 
-![Monitor com raspberry](<Imagens/completo.jpg)
+![Monitor com Mouse e teclado](<Imagens/completo.jpg>)
 ![Monitor com raspberry de lado](<Imagens/suporte com o monitor de lado.jpg>)
 
  # Câmera
