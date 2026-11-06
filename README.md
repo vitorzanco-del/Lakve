@@ -105,3 +105,19 @@ Tiraram fotos no laboratório e estão fazendo a penúltima página do relatóri
 
 ***Grupo: Lakave**
 Estamos organizando o site, realizando ajustes no arquivo README.md e atualizando as páginas para incluir a documentação de cada equipe.
+
+# atualização dia 04/11/2026
+***grupo: Axión**
+fizeram o suporte do moitor e ajudaram o professor a fazer o raspberry funcionar.
+
+***Grupo: ComunicCNC**
+ Estão ajudando o grupo Axión.
+
+ ***Grupo ThirteenTech**
+estão aguardando ficar pronto o projeto para fazero video para imprimir o jornal proxima semana ja que foi adiado.
+
+ ***Grupo: Neonix** 
+ Estão aguardando o Grupo Axión Terminar para terminar o Vídeo.
+
+***Grupo: Lakave**
+tiramos fotos do monitor com o novo suporte e documentamos o andamento das equipes.
