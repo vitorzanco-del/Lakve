@@ -115,7 +115,7 @@ fizeram o suporte do moitor e ajudaram o professor a fazer o raspberry funcionar
  Estão ajudando o grupo Axión.
 
  ***Grupo ThirteenTech**
-estão aguardando ficar pronto o projeto para fazer o video para imprimir o jornal proxima semana ja que foi adiado.
+Estão aguardando a finalização do projeto para produzir o vídeo e, em seguida, encaminhá-lo para impressão no jornal na próxima semana, já que o evento Mundo SENAI foi adiado.
 
  ***Grupo: Neonix** 
  Estão aguardando o Grupo Axión Terminar para terminar o Vídeo.
