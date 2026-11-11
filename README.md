@@ -90,16 +90,16 @@ Está aguardando a chegada do projeto físico para finalizar o vídeo, que já e
 ***Grupo: lakave**
 Estamos fazendo o site e documentando no README.
 
-# atualização dia 30/10/2026
+# Atualização dia 30/10/2026
 
 ***Grupo: Axión**
 acharam a solução definitiva pra entregar o sistema com rede local fizeram a documentação hoje.
 
 ***Grupo: ComunicCNC**
-Estão ajudando o grupo Axión e mandaram a documentação pra a minha equipe
+Estão ajudando o grupo Axión e mandaram a documentação para minha equipe.
 
 ***Grupo ThirteenTech**
-Tiraram fotos no laboratório e estão fazendo a penúltima página do relatório
+Tiraram fotos no laboratório e estão fazendo a penúltima página do relatório.
 
 
 ***Grupo: Neonix** Estão aguardando o Grupo Axión Terminar para terminar o Vídeo.
@@ -107,7 +107,7 @@ Tiraram fotos no laboratório e estão fazendo a penúltima página do relatóri
 ***Grupo: Lakave**
 Estamos organizando o site, realizando ajustes no arquivo README.md e atualizando as páginas para incluir a documentação de cada equipe.
 
-# atualização dia 04/11/2026
+# Atualização dia 04/11/2026
 ***grupo: Axión**
 fizeram o suporte do moitor e ajudaram o professor a fazer o raspberry funcionar.
 
@@ -115,10 +115,27 @@ fizeram o suporte do moitor e ajudaram o professor a fazer o raspberry funcionar
  Estão ajudando o grupo Axión.
 
  ***Grupo ThirteenTech**
-estão aguardando ficar pronto o projeto para fazero video para imprimir o jornal proxima semana ja que foi adiado.
+estão aguardando ficar pronto o projeto para fazer o video para imprimir o jornal proxima semana ja que foi adiado.
 
  ***Grupo: Neonix** 
  Estão aguardando o Grupo Axión Terminar para terminar o Vídeo.
 
 ***Grupo: Lakave**
 tiramos fotos do monitor com o novo suporte e documentamos o andamento das equipes.
+
+# Atualização dia 11/11/2026
+
+***grupo: Axión**
+estão refazendo a estrutura do raspberry.
+
+***Grupo: ComunicCNC**
+ terminaram a parte deles e não estão fazendo nada.
+
+***Grupo ThirteenTech**
+o jornal está pronto hj e só falta colocar o QR Code e hoje não fizeram nada.
+
+***Grupo: Neonix**
+Estão aguardando o Grupo Axión Terminar para terminar o Vídeo.
+
+***Grupo: Lakave**
+estamos fazendo a documentação de cada equipe.
